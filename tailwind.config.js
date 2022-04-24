@@ -2,21 +2,17 @@ module.exports = {
   content: ["./src/**/*.{html,js,jsx}"],
   theme: {
     screens: {
-      'sm': '576px',
-      // => @media (min-width: 576px) { ... }
-    
-      'md': '768px',
-      // => @media (min-width: 768px) { ... }
-    
-      'lg': '992px',
-      // => @media (min-width: 992px) { ... }
-    
-      'xl': '1200px',
-      // => @media (min-width: 1200px) { ... }
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
     },
     extend: {
       colors: {
-        'primary': '#1ABAB9',
+        primary: "#1ABAB9",
+      },
+      fontFamily: {
+        Montserrat: ["Montserrat", "sans-serif"],
       },
     },
   },

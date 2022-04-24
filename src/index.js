@@ -7,6 +7,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Error from "./pages/Error";
+import LeadingPatient from "./pages/Leading_pages/Leading_patient.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -14,6 +15,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />,
+        <Route path="/patient" element={<LeadingPatient />} />,
         <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>
