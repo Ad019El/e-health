@@ -37,7 +37,7 @@ function Leading_patient() {
       <div className="container flex place-content-center mb-10">
         <hr className="w-10 border-1 border-black " />
       </div>
-      <div className="mb-10 grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-8 place-content-center">
+      <div className="mb-10 grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-8 place-items-center">
         <InfoCard
           title="Prenez rendez-vous en ligne"
           content="Recherchez une spécialité puis choisissez le praticien et l'horaire qui vous conviennent. Connectez-vous à la salle d’attente 15 min avant le démarrage de la téléconsultation."

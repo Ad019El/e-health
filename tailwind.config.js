@@ -1,6 +1,7 @@
 module.exports = {
   content: ["./src/**/*.{html,js,jsx}"],
   theme: {
+
     screens: {
       sm: '640px',
       md: '768px',
@@ -13,6 +14,12 @@ module.exports = {
       },
       fontFamily: {
         Montserrat: ["Montserrat", "sans-serif"],
+      },
+    },
+    variants: {
+      extend: {
+        backgroundColor: ['active','visited'],
+        textColor: ['visited']
       },
     },
   },

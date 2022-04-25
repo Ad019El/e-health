@@ -1,34 +1,39 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState } from "react";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import LeadingPage from "./pages/Leading_pages/Leading_patient.js";
+import LeadingPraticient from "./pages/Leading_pages/Leading_praticient";
 
 function App() {
-  const [active, setActive] = useState("patient");
+  const [type, setType] = useState("patient");
 
   return (
     <div className="App">
-      <div className="bg-[#343443] text-right p-1">
+      <nav className="bg-[#343443] text-right p-1">
         <a
-          className="pr-2 cursor-pointer text-white active:bg-slate-400 group- hover:bg-slate-400 hover:p-1.5 hover:pr-2"
+          className={`${type === "praticient" && "bg-slate-400 p-1.5 pr-2"}
+          pr-2 cursor-pointer text-white hover:bg-slate-400 hover:p-1.5 hover:pr-2`}
           onClick={() => {
-            setActive("praticient");
+            setType("praticient");
           }}
         >
           Vous êtes praticient
         </a>
         <a
-          className="pl-2 cursor-pointer pr-5 text-white active:bg-slate-400 hover:bg-slate-400 hover:p-1.5 hover:pr-5 hover:pl-2"
+          className={`${
+            type === "patient" && "bg-slate-400 p-1.5 pr-2"
+          } pl-2 cursor-pointer pr-5 text-white hover:bg-slate-400 hover:p-1.5 hover:pr-5 hover:pl-2`}
           onClick={() => {
-            setActive("patient");
+            setType("patient");
           }}
         >
           Vous êtes patient
         </a>
-      </div>
+      </nav>
       <Navbar />
-      {active === "patient" && <LeadingPage />}
-      {active === "praticient" && <h1>hi there</h1>}
+      {type === "patient" && <LeadingPage />}
+      {type === "praticient" && <LeadingPraticient />}
       <Footer />
     </div>
   );
