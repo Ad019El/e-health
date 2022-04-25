@@ -16,12 +16,6 @@ module.exports = {
         Montserrat: ["Montserrat", "sans-serif"],
       },
     },
-    variants: {
-      extend: {
-        backgroundColor: ['active','visited'],
-        textColor: ['visited']
-      },
-    },
   },
   plugins: [],
 };

@@ -1,4 +1,4 @@
-import hero from "../../assets/hero.png";
+import hero from "../../assets/hero2.png";
 import InfoCard from "../../components/InfoCard";
 
 function Leading_praticient() {
@@ -10,11 +10,11 @@ function Leading_praticient() {
             Une solution de téléconsultation
           </h1>
           <p className="leading-normal list-disc mb-8 list-outside pl-2">
-            E-santé est une solution de téléconsultation 100% en ligne,
-            française et sans engagement de durée. E-santé vous permet de
-            faciliter le suivi de votre patientèle et d’améliorer l’accès aux
-            soins des patients de votre territoire. Une formation souple,
-            initiale et continue à notre outil .
+            E-santé est une solution de téléconsultation 100% en ligne, sans
+            engagement de durée. E-santé vous permet de faciliter le suivi de
+            votre patientèle et d’améliorer l’accès aux soins des patients de
+            votre territoire. Une formation souple, initiale et continue à notre
+            outil .
           </p>
           <button className="px-6 h-12 transition ease-in duration-200  text-white rounded-2xl bg-primary hover:bg-transparent hover:text-primary border-2 border-primary focus:outline-none">
             Inscrire
