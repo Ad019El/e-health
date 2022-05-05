@@ -10,7 +10,7 @@ function App() {
 
   return (
     <div className="App">
-      <nav className="bg-[#343443] text-right p-1">
+      <nav className="bg-darker_grey text-right p-1">
         <a
           className={`${type === "praticient" && "bg-slate-400 p-1.5 pr-2"}
           pr-2 cursor-pointer text-white hover:bg-slate-400 hover:p-1.5 hover:pr-2`}
@@ -31,7 +31,7 @@ function App() {
           Vous êtes patient
         </a>
       </nav>
-      <Navbar />
+      <Navbar landing_phone_hide="invisible" />
       {type === "patient" && <LeadingPage />}
       {type === "praticient" && <LeadingPraticient />}
       <Footer />

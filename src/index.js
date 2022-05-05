@@ -8,6 +8,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Error from "./pages/Error";
 import Login from "./pages/Auth/Login";
+import Patinet from "./pages/Patient";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -15,8 +16,9 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />,
-        <Route path="*" element={<Error />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/patient" element={<Patinet />} />
+        <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

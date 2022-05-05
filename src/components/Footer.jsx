@@ -22,7 +22,7 @@ function Footer() {
         <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">
           © 2022{" "}
           <a href="https://github.com/Ad019El/e-health" class="hover:underline">
-            Made with <i class="fa fa-heart pulse"></i> FennecDev
+            Made with ♥️ FennecDev
           </a>
           . All Rights Reserved.
         </span>

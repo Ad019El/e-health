@@ -3,20 +3,20 @@ import React from "react";
 function Error() {
   return (
     <>
-      <main class="bg-white relative overflow-hidden h-screen relative">
-        <div class="container mx-auto px-6 md:px-12 relative z-10 flex items-center py-10">
-          <div class="container mx-auto px-6 flex flex-col justify-between items-center relative">
-            <div class="flex w-full items-center justify-center space-x-12 flex-col md:flex-row mb-16 md:mb-8">
-              <h1 class="font-thin text-center text-6xl text-gray-800">
+      <main className="bg-white relative overflow-hidden h-screen relative">
+        <div className="container mx-auto px-6 md:px-12 relative z-10 flex items-center py-10">
+          <div className="container mx-auto px-6 flex flex-col justify-between items-center relative">
+            <div className="flex w-full items-center justify-center space-x-12 flex-col md:flex-row mb-16 md:mb-8">
+              <h1 className="font-thin text-center text-6xl text-gray-800">
                 GOT LOST ?
               </h1>
             </div>
-            <h4 class="font-thin text-center text-3xl text-gray-800">
+            <h4 className="font-thin text-center text-3xl text-gray-800">
               Error 404!
             </h4>
-            <div class="block w-full mx-auto mt-6 md:mt-0 relative">
+            <div className="block w-full mx-auto mt-6 md:mt-0 relative">
               <svg
-                class="max-w-2xl m-auto"
+                className="max-w-2xl m-auto"
                 viewBox="0 0 1440 1024"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
