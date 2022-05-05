@@ -34,7 +34,6 @@ function App() {
       <Navbar landing_phone_hide="invisible" />
       {type === "patient" && <LeadingPage />}
       {type === "praticient" && <LeadingPraticient />}
-      <Footer />
     </div>
   );
 }

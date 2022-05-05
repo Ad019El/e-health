@@ -1,4 +1,5 @@
 import hero from "../../assets/hero2.png";
+import Footer from "../../components/Footer";
 import InfoCard from "../../components/InfoCard";
 
 function Leading_praticient() {
@@ -51,6 +52,7 @@ function Leading_praticient() {
           content="La solution Qare est compatible avec votre logiciel métier pour vous permettre de partager vos documents."
         />
       </div>
+      <Footer />
     </div>
   );
 }

@@ -155,7 +155,7 @@ export default function Navbar(props) {
               }
               {
                 <button
-                  className={`block bg-red-500 text-white group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                  className={`bg-red-500 text-white group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                 >
                   Log Out
                 </button>

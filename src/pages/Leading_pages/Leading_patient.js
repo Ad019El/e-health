@@ -1,4 +1,5 @@
 import hero from "../../assets/hero1.png";
+import Footer from "../../components/Footer";
 import InfoCard from "../../components/InfoCard";
 
 function Leading_patient() {
@@ -55,6 +56,7 @@ function Leading_patient() {
           content="La téléconsultation est remboursable par l’Assurance Maladie. Sur Qare, vous pouvez également consulter des médecins qui pratiquent le tiers payant - vous n’aurez alors aucun frais à avancer à condition d’avoir une carte vitale à jour."
         />
       </div>
+      <Footer />
     </div>
   );
 }
