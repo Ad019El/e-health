@@ -9,7 +9,7 @@ export default function Navbar(props) {
   let navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <nav className="bg-white sticky top-0 z-50">
+    <nav className="bg-white sticky shadow-sm top-0 z-50">
       {/* <div className="mx-auto p-4 lg:px-16 px-5 flex flex-row bg-white sticky top-0 z-50">
         <img className="h-14" src={logo} alt="logo" />
 
