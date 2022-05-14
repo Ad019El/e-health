@@ -1,7 +1,8 @@
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 import profile from '../assets/profile.png'
-// import { ChevronDownIcon } from '@heroicons/react/solid'
+import { signout } from "../pages/Auth/index";
+
 
 export default function Dropdown() {
   return (
@@ -40,6 +41,7 @@ export default function Dropdown() {
               <Menu.Item>
                 {({ active }) => (
                   <button
+                  onClick={signout}
                     className={`${
                       active ? 'bg-red-500 text-white' : 'text-gray-900'
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}

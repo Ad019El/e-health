@@ -7,8 +7,10 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Error from "./pages/Error";
-import Login from "./pages/Auth/Login";
-import Patinet from "./pages/Patient";
+import Login from "./pages/Login";
+import Patinet from "./pages/Patient/Patient";
+import PatientMedecineInfo from "./pages/Patient/PatientMedecineInfo";
+import PrivateRoute from "./pages/Routes/Private_route";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -17,7 +19,12 @@ root.render(
       <Routes>
         <Route path="/" element={<App />} />,
         <Route path="/login" element={<Login />} />
-        <Route path="/patient" element={<Patinet />} />
+        <Route path="/infoMed" element={<PatientMedecineInfo />} />
+        <Route
+          exact
+          path="/patient"
+          element={<PrivateRoute component={Patinet} />}
+        />
         <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>

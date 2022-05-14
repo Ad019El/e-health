@@ -1,0 +1,7 @@
+POST http://192.168.43.88:8000/api/signin
+Content-Type: application/json
+
+{
+    "email":"a.dafi@esi-sba.com",
+    "password":"heisenberg"
+}

@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo_esante.png";
 import Dropdown from "./Dropdown";
+import { signout } from "../pages/Auth/index";
+
 
 import React, { useState } from "react";
 import { Transition } from "@headlessui/react";
@@ -10,21 +12,6 @@ export default function Navbar(props) {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <nav className="bg-white sticky shadow-sm top-0 z-50">
-      {/* <div className="mx-auto p-4 lg:px-16 px-5 flex flex-row bg-white sticky top-0 z-50">
-        <img className="h-14" src={logo} alt="logo" />
-
-        {props.patient === "patient" && <button className="pl-10 px-3 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">Consultation</button>}
-        {props.patient === "patient" && <button className="px-3 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">Documents</button>}
-        {props.patient === "patient" && <button className="px-3 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">Historique des consultation</button>}
-
-        <div className="grow"></div>
-        {props.patient === "patient" && <Dropdown/>}
-        <button className={` ${props.edit}  px-6 h-12 transition ease-in duration-200  text-primary rounded-2xl hover:bg-primary hover:text-white border-2 border-primary focus:outline-none`} 
-        onClick={()=>{navigate('/login',{replace: true})}}>
-          Connexion
-        </button>
-        
-      </div> */}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -35,19 +22,14 @@ export default function Navbar(props) {
 
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
-                {props.patient === "patient" && (
+                {props.type === "patient" && (
                   <button className="px-3 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
                     Consultation
                   </button>
                 )}
-                {props.patient === "patient" && (
+                {props.type === "patient" && (
                   <button className="px-3 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
                     Documents
-                  </button>
-                )}
-                {props.patient === "patient" && (
-                  <button className="px-3 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
-                    Historique des consultation
                   </button>
                 )}
               </div>
@@ -55,7 +37,7 @@ export default function Navbar(props) {
           </div>
 
           <div className="-m-2 hidden md:block">
-            {props.patient === "patient" && (
+            {props.type === "patient" && (
               <div className="flex flex-row">
                 <div>
                   <p className="font-extrabold text-darker_grey ">Bonjour,</p>
@@ -133,17 +115,17 @@ export default function Navbar(props) {
           <div className="md:hidden" id="mobile-menu">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               {/* mobile itemes */}
-              {props.patient === "patient" && (
+              {props.type === "patient" && (
                 <button className="px-3 mt-5 block p-2 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
                   Consultation
                 </button>
               )}
-              {props.patient === "patient" && (
+              {props.type === "patient" && (
                 <button className="px-3 mb-10 p-2 block text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
                   Documents
                 </button>
               )}
-              {props.patient === "patient" && (
+              {props.type === "patient" && (
                 <button className="px-3 mt-5 pb-4 p-2 block text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
                   Historique des consultation
                 </button>
@@ -155,6 +137,7 @@ export default function Navbar(props) {
               }
               {
                 <button
+                onClick={signout}
                   className={`bg-red-500 text-white group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                 >
                   Log Out
