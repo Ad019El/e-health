@@ -13,17 +13,16 @@ const specialite = [
   { name: "Gériatrie" },
   { name: "endocrinologie" },
 ];
-
-const prix = [{ name: "1500 DA " }, { name: "2000 DA" }, { name: "2500 DA" }];
+// const prix = [{ name: "1500 DA " }, { name: "2000 DA" }, { name: "2500 DA" }];
 
 function Patinet() {
   return (
     <div>
-      <Navbar edit="hidden" type="patient" />
+      <Navbar edit="hidden" type="patient" homepath="/patient" />
       <div className="lg:p-10 lg:px-40 p-5 pt-18">
         <div className="container px-3 mb-10 mx-auto flex flex-wrap flex-col md:flex-row items-center">
           <div className="flex flex-col w-full justify-center items-start md:text-left">
-            <p className="text-2xl font-medium mb-14 text-darker_grey">
+            <p className="text-2xl mt-5 font-medium mb-14 text-darker_grey">
               Prochaines disponibilités :
             </p>
 
@@ -49,7 +48,7 @@ function Patinet() {
 
             <div className="flex flex-row place-items-center mb-10">
               <p className="font-medium text-xl text-darker_grey p-2 pr-4 ">
-                Rechercher
+                Recherche
               </p>
               <div class="flex relative ">
                 <input
@@ -67,6 +66,7 @@ function Patinet() {
             </div>
           </div>
         </div>
+
         <div className="mb-10 grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-8 place-items-center">
           <DoctorCardInfo
             profile={profile}

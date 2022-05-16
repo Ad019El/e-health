@@ -17,6 +17,7 @@ import {
   AppointmentForm,
   Resources,
 } from "@devexpress/dx-react-scheduler-material-ui";
+import { useNavigate } from "react-router-dom";
 
 const currentDate = "2022-05-13";
 const schedulerData = [
@@ -33,13 +34,17 @@ const schedulerData = [
 ];
 
 function PatientMedecineInfo() {
+  const navigate = useNavigate();
   return (
     <div>
-      <Navbar edit="hidden" type="patient" />
+      <Navbar edit="hidden" type="patient" homepath="/patient" />
       <div className="lg:p-10 lg:px-40 p-5 pt-18">
         <div className="container px-3 mb-5 mx-auto flex flex-wrap flex-col md:flex-row items-center">
           <div className="flex flex-col w-full justify-center items-start md:text-left">
             <button
+              onClick={() => {
+                navigate("/patient");
+              }}
               type="button"
               class="text-darker_grey hover:text-grey_light"
             >

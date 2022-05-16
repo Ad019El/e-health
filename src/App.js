@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState } from "react";
-import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import LeadingPage from "./pages/Leading_pages/Leading_patient.js";
 import LeadingPraticient from "./pages/Leading_pages/Leading_praticient";

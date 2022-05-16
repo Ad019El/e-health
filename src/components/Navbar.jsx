@@ -17,11 +17,12 @@ export default function Navbar(props) {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <div className="flex-shrink-0 flex ">
-              <img className="h-14" src={logo} alt="logo" />
+              <img onClick={()=> navigate(props.homepath)} className="h-14 cursor-pointer" src={logo} alt="logo" />
             </div>
 
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
+                {/* patient */}
                 {props.type === "patient" && (
                   <button className="px-3 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
                     Consultation
@@ -32,6 +33,25 @@ export default function Navbar(props) {
                     Documents
                   </button>
                 )}
+
+
+                {/* medecin */}
+                { props.type === "medecin" && (
+                    <button className="px-3 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
+                    Mes patient
+                  </button>
+                )}
+                {props.type === "medecin" && (
+                    <button className="px-3 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
+                    Historique des consultations
+                  </button>
+                )}
+                {props.type === "medecin" && (
+                    <button className="px-3 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
+                    Imagerie
+                  </button>
+                )}
+
               </div>
             </div>
           </div>
@@ -44,6 +64,15 @@ export default function Navbar(props) {
                   <p className="font-medium text-grey_light">Adel Dafi</p>
                 </div>
                 <Dropdown />
+              </div>
+            )}
+            {props.type === "medecin" && (
+              <div className="flex flex-row">
+                <div>
+                  <p className="font-extrabold text-darker_grey ">Bonjour,</p>
+                  <p className="font-medium text-grey_light">Yassine Benlaria</p>
+                </div>
+                <Dropdown/>
               </div>
             )}
           </div>
@@ -130,6 +159,23 @@ export default function Navbar(props) {
                   Historique des consultation
                 </button>
               )}
+
+              {/* medecin */}
+              { props.type === "medecin" && (
+                    <button className="px-3 mt-5 block p-2 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
+                    Mes patient
+                  </button>
+                )}
+                {props.type === "medecin" && (
+                    <button className="px-3 mt-5 block p-2 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
+                    Historique des consultations
+                  </button>
+                )}
+                {props.type === "medecin" && (
+                    <button className="px-3 mt-5 pb-4 p-2 block text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
+                    Imagerie
+                  </button>
+                )}
               {
                 <button className="bg-primary text-white group flex w-full items-center rounded-md px-2 py-2 text-sm">
                   Account

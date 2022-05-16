@@ -1,8 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import hero from "../../assets/hero1.png";
 import Footer from "../../components/Footer";
 import InfoCard from "../../components/InfoCard";
 
 function Leading_patient() {
+  const navigate = useNavigate();
+
   return (
     <div className="lg:p-10 lg:px-40 p-5 pt-18">
       <div className="container px-3 mb-5 mx-auto flex flex-wrap flex-col md:flex-row items-center">
@@ -21,7 +24,12 @@ function Leading_patient() {
               <span className="text-black">Ordonnance</span>
             </li>
           </ul>
-          <button className="px-6 h-12 transition ease-in duration-200  text-white rounded-2xl bg-primary hover:bg-transparent hover:text-primary border-2 border-primary focus:outline-none">
+          <button
+            onClick={() => {
+              navigate("/signup");
+            }}
+            className="px-6 h-12 transition ease-in duration-200  text-white rounded-2xl bg-primary hover:bg-transparent hover:text-primary border-2 border-primary focus:outline-none"
+          >
             prendre rendez-vous
           </button>
         </div>

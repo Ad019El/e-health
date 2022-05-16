@@ -7,33 +7,3 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   return !isAuthenticate() ? <Navigate to="/login" /> : <Component />;
 };
 export default PrivateRoute;
-
-// const PrivateRoute = ({
-
-//     return(
-//         <Route render={(props) =>
-//         loading ? (
-//           <div className='my-5 text-center'>
-//             <Spinner />
-//           </div>
-//         ) : !isAuthenticated ? (
-//           <Redirect to='/login' />
-//         ) : (
-//           <Component {...props} />
-//         )
-//       }
-//     />
-//     );
-
-//     // return(
-//     //     <Route
-//     //     render={(props)=>{
-
-//     //     !isAuthenticate() ? (
-//     //         <Navigate to='/login' />
-//     //       ) : (
-//     //         <Component {...props} />
-//     //       )
-//     // }});/>
-
-// });
