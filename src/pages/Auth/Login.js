@@ -2,10 +2,13 @@ import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import { authenticate, getUserType, isAuthenticate } from "./index";
 import { Navigate, useNavigate } from "react-router-dom";
+import Alert from "../../components/Alert";
+import { useState } from "react";
 
 function Login() {
   const navigate = useNavigate();
   const axios = require("axios");
+  const [alert, setAlert] = useState("");
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -19,18 +22,16 @@ function Login() {
         // localStorage.setItem("jwt", result.data.token);
         authenticate(result.data);
         window.location.reload(false);
-        if (getUserType() === "patient") return <Navigate to="/patient" />;
-        else if (getUserType() === "medecin") return console.log("medecin");
-        else if (getUserType() === "admin") return console.log("admin");
-        else return <Navigate to="/login" />;
       })
       .catch((error) => {
-        return console.log(error);
+        console.log(error);
+        setAlert(error.response.data.err);
       });
   };
+
   if (isAuthenticate()) {
     if (getUserType() === "patient") return <Navigate to="/patient" />;
-    else if (getUserType() === "medecin") return console.log("medecin");
+    else if (getUserType() === "medecin") return <Navigate to="/medecin" />;
     else if (getUserType() === "admin") return console.log("admin");
     else return <Navigate to="/login" />;
     // navigate("/patient");
@@ -46,6 +47,12 @@ function Login() {
                 <h2 className="mt-6 text-center text-3xl font-Montserrat text-gray-900">
                   Sign in to your account
                 </h2>
+                {alert ? (
+                  <Alert type="Failed!" color="red" content={alert} />
+                ) : (
+                  <></>
+                )}
+
                 <p className="mt-2 text-center text-sm text-gray-600">
                   Or{" "}
                   <button

@@ -1,10 +1,12 @@
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
+import { Navigate, useNavigate } from 'react-router-dom';
 import profile from '../assets/profile.png'
 import { signout } from "../pages/Auth/index";
 
 
 export default function Dropdown() {
+  const navigate = useNavigate();
   return (
     <div>
       <Menu as="div" className="relative inline-block text-left">
@@ -30,6 +32,7 @@ export default function Dropdown() {
                     className={`${
                       active ? 'bg-primary text-white' : 'text-gray-900'
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    onClick={()=>{navigate("/account");}}
                   >
 
                     Account

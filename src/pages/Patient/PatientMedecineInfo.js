@@ -11,30 +11,194 @@ import {
   DateNavigator,
   Appointments,
   TodayButton,
-  EditRecurrenceMenu,
-  ConfirmationDialog,
   AppointmentTooltip,
-  AppointmentForm,
   Resources,
 } from "@devexpress/dx-react-scheduler-material-ui";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import Spinner from "../../components/Spinner";
+import Alert from "../../components/Alert";
 
-const currentDate = "2022-05-13";
-const schedulerData = [
-  {
-    startDate: "2022-05-13T09:45",
-    endDate: "2022-05-13T11:00",
-    title: "Meeting",
-  },
-  {
-    startDate: "2018-11-01T12:00",
-    endDate: "2018-11-01T13:30",
-    title: "Go to a gym",
-  },
-];
+// const schedulerData = [
+//   {
+//     //2022-05-25T09:45
+//     // Fri May 27 2022 10:30:00 GMT+0100
+//     startDate: "2022-05-25T09:45",
+//     endDate: "2022-05-25T10:45",
+//     title: "Meeting",
+//     id: 0,
+//     reserved: false,
+//     notes: "asd",
+//   },
+//   {
+//     //2022-05-25T09:45
+//     // Fri May 27 2022 10:30:00 GMT+0100
+//     startDate: "2022-05-26T09:45",
+//     endDate: "2022-05-26T10:45",
+//     title: "Meeting",
+//     notes: "hi there",
+//     id: 1,
+//     reserved: true,
+//   },
+// ];
+const axios = require("axios");
+const API = `http://${process.env.REACT_APP_SERVER_IP}`;
 
-function PatientMedecineInfo() {
+function PatientMedecineInfo(props) {
+  const location = useLocation();
   const navigate = useNavigate();
+  const [data, setData] = useState([]);
+  const [Loading, setLoading] = useState(true);
+  const [alert, setAlert] = useState("");
+  const [type, setType] = useState("Success");
+  const [show, setShow] = useState(true);
+
+  const TooltipContent = ({ appointmentData, formatDate }) => {
+    console.log(appointmentData, "gggg ");
+    return (
+      <div>
+        <div className="text-2xl pl-10 text-primary_800 font-bold ">{`${
+          appointmentData.title || "Meeting"
+        } `}</div>
+        <div className="pl-10 text-sm mb-5">
+          {`
+        ${new Date(appointmentData.startDate).toDateString()} `}
+        </div>
+
+        <div className="pl-10 text-primary_800 mb-2">
+          {`${formatDate(appointmentData.startDate, {
+            hour: "numeric",
+            minute: "numeric",
+          })} - ${formatDate(appointmentData.endDate, {
+            hour: "numeric",
+            minute: "numeric",
+          })}`}
+        </div>
+        <p className="text-sm pl-10 text-primary_800 mb-1">Notes:</p>
+        <div className="text-1xl text-justify px-10  mb-4">{`${
+          appointmentData.notes || "No Notes"
+        }`}</div>
+
+        <div className="w-full flex place-content-center">
+          {appointmentData.reserved ? (
+            <button
+              onClick={() => {
+                console.log("appointement id", appointmentData.id);
+                const userID = JSON.parse(localStorage.getItem("jwt")).user._id;
+
+                axios
+                  .post(
+                    `${API}/api/appointment/cancel/${userID}`,
+                    {
+                      appointment_id: appointmentData.id,
+                    },
+                    {
+                      headers: {
+                        Authorization: `Bearer ${
+                          JSON.parse(localStorage.getItem("jwt")).token
+                        }`,
+                      },
+                    }
+                  )
+                  .then((result) => {
+                    appointmentData.reserved = false;
+                  })
+                  .catch((err) => console.log(err));
+              }}
+              className="my-4 px-6 h-12 transition ease-in duration-200  text-white rounded-2xl bg-red-500 hover:bg-transparent hover:text-red-500 border-2 border-red-500 focus:outline-none"
+            >
+              Annuler
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                console.log("appointement id", appointmentData.id);
+                const userID = JSON.parse(localStorage.getItem("jwt")).user._id;
+
+                axios
+                  .post(
+                    `${API}/api/appointment/reserve/${userID}`,
+                    {
+                      appointment_id: appointmentData.id,
+                    },
+                    {
+                      headers: {
+                        Authorization: `Bearer ${
+                          JSON.parse(localStorage.getItem("jwt")).token
+                        }`,
+                      },
+                    }
+                  )
+                  .then((result) => {
+                    appointmentData.reserved = true;
+                    setType("Success");
+                    setAlert(`Successfully Reserved`);
+                    // console.log(result.data);
+                  })
+                  .catch((err) => console.log(err));
+              }}
+              className="my-4 px-6 h-12 transition ease-in duration-200  text-white rounded-2xl bg-[#64B5F6] hover:bg-transparent hover:text-[#64B5F6] border-2 border-[#64B5F6] focus:outline-none"
+            >
+              Reserve
+            </button>
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  const Appointment = ({ children, style, data, ...restProps }) => (
+    <Appointments.Appointment
+      {...restProps}
+      data={data}
+      style={{
+        ...style,
+        backgroundColor: data.reserved === true ? "#808080" : "#1ABAB9",
+        borderRadius: "8px",
+      }}
+    >
+      {children}
+    </Appointments.Appointment>
+  );
+
+  console.log();
+  useEffect(() => {
+    axios
+      .get(`${API}/api/appointment/medecin/${location.state.id}`, {
+        headers: {
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("jwt")).token
+          }`,
+        },
+      })
+      .then((result) => {
+        setData([]);
+        console.log(result.data);
+        result.data.reservations.map((appointment) => {
+          data.push({
+            id: appointment._id,
+            startDate: appointment.start_date,
+            endDate: appointment.end_date,
+            title: appointment.title,
+            reserved: appointment.reserved,
+            notes: appointment.notes,
+            patientID: appointment.patient_id,
+          });
+          setData(data);
+          setLoading(false);
+        });
+      })
+      .catch((err) => console.log(err));
+
+    const timeId = setTimeout(() => {
+      setShow(false);
+    }, 7000);
+
+    return () => {
+      clearTimeout(timeId);
+    };
+  });
+
   return (
     <div>
       <Navbar edit="hidden" type="patient" homepath="/patient" />
@@ -46,49 +210,52 @@ function PatientMedecineInfo() {
                 navigate("/patient");
               }}
               type="button"
-              class="text-darker_grey hover:text-grey_light"
+              className="text-darker_grey hover:text-grey_light"
             >
               <ArrowLeftIcon className="h-8 w-8" />
             </button>
             <div className="flex flex-row items-center">
-              <div class="w-20 h-20 mt-10">
+              <div className="w-20 h-20 mt-10">
                 <img className="rounded-full" src={profile} alt="profile" />
               </div>
               <div className="flex flex-col items-start pl-5">
-                <p class="text-gray-800 text-xl text-center font-medium mb-2 mt-4">
-                  Dr Michel FROMENT
+                <p className="tex`t-gray-800 text-xl text-center font-medium mb-2 mt-4">
+                  {location.state.name}
                 </p>
-                <p class="text-gray-400 text-center text-xs">
-                  Médecin Généraliste
+                <p className="text-gray-400 text-center text-xs">
+                  {location.state.specialite}
                 </p>
               </div>
             </div>
-            <div className="w-full md:p-5 pt-10">
-              <Scheduler data={schedulerData}>
-                <ViewState defaultCurrentDate="2022-05-13" />
-                <WeekView startDayHour={9} endDayHour={19} />
-                <Toolbar />
-                <DateNavigator />
-                <TodayButton />
-                <Appointments />
-                {/* <EditRecurrenceMenu /> */}
-                {/* <ConfirmationDialog /> */}
-                <Appointments />
-                <AppointmentTooltip
-                  headerComponent={() => (
-                    <div className="w-full flex place-content-center">
-                      <button className="my-4 px-6 h-12 transition ease-in duration-200  text-white rounded-2xl bg-[#64B5F6] hover:bg-transparent hover:text-[#64B5F6] border-2 border-[#64B5F6] focus:outline-none">
-                        Reserve
-                      </button>
-                    </div>
-                  )}
-                />
-              </Scheduler>
+            <div className="w-full px-4 m-5 mt-10 mb-2">
+              {alert ? (
+                show && <Alert type={type} calendar={true} content={alert} />
+              ) : (
+                <></>
+              )}
             </div>
-            <p class="text-gray-800 text-xl text-center font-medium mb-2 mt-8">
+            {!Loading ? (
+              <div className="w-full md:p-5 pt-10">
+                <Scheduler data={data}>
+                  <ViewState defaultCurrentDate={new Date()} />
+                  <WeekView startDayHour={8} endDayHour={19} />
+                  <Toolbar />
+                  <DateNavigator />
+                  <TodayButton />
+                  <Appointments appointmentComponent={Appointment} />
+                  <AppointmentTooltip
+                    showCloseButton
+                    contentComponent={TooltipContent}
+                  />
+                </Scheduler>
+              </div>
+            ) : (
+              <Spinner calendar={"calendar"} />
+            )}
+            <p className="text-gray-800 text-xl text-center font-medium mb-2 mt-8">
               Profil du particien
             </p>
-            /// profile
+            profile
           </div>
         </div>
       </div>

@@ -1,11 +1,15 @@
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import hero from "../../assets/hero1.png";
 import Footer from "../../components/Footer";
 import InfoCard from "../../components/InfoCard";
+import { isAuthenticate } from "../Auth";
 
 function Leading_patient() {
   const navigate = useNavigate();
 
+  if (isAuthenticate()) {
+    return <Navigate to="/login" />;
+  }
   return (
     <div className="lg:p-10 lg:px-40 p-5 pt-18">
       <div className="container px-3 mb-5 mx-auto flex flex-wrap flex-col md:flex-row items-center">

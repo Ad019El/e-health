@@ -70,6 +70,77 @@ exports.getUserType = () => {
   if (!localStorage.getItem("jwt")) return false;
   return JSON.parse(localStorage.getItem("jwt")).user.type;
 };
+
+//get medecins
+exports.getMedecins = () => {
+  return axios
+    .get(`${API}/api/medecin/all`, {
+      headers: {
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("jwt")).token
+        }`,
+      },
+    })
+    .then((result) => {
+      return result.data;
+    })
+    .catch((err) => console.log(err));
+};
+
+//search
+exports.searchMedecins = (keyword) => {
+  return axios
+    .get(`${API}/api/medecin/search/${keyword || "empty"}`, {
+      headers: {
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("jwt")).token
+        }`,
+      },
+    })
+    .then((result) => {
+      return result.data;
+    })
+    .catch((err) => console.log(err));
+};
+
+//price
+exports.searchPrice = (min, max) => {
+  return axios
+    .get(`${API}/api/medecin/search/${min || 0}/${max || 999999999}`, {
+      headers: {
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("jwt")).token
+        }`,
+      },
+    })
+    .then((result) => {
+      return result.data;
+    })
+    .catch((err) => console.log(err));
+};
+
+// addd an appointment
+exports.addAppointment = (id, titre, start_date, end_date, notes) => {
+  const json = {
+    medecin_id: id,
+    start_date,
+    end_date,
+    title: titre,
+    notes,
+  };
+
+  return axios
+    .post(`${API}/api/appointment/add`, json)
+    .then((response) => {
+      console.log("index result", response);
+      return response.data;
+    })
+    .catch((err) => {
+      console.log("index err", err.response.data);
+      return err.response.data;
+    });
+};
+
 //add new patient
 // exports.addEmployee = (nom, prenom, email, telephone, poste, image) => {
 //     let data = new FormData();

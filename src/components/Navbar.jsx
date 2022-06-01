@@ -3,7 +3,6 @@ import logo from "../assets/logo_esante.png";
 import Dropdown from "./Dropdown";
 import { signout } from "../pages/Auth/index";
 
-
 import React, { useState } from "react";
 import { Transition } from "@headlessui/react";
 
@@ -12,46 +11,75 @@ export default function Navbar(props) {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <nav className="bg-white sticky shadow-sm top-0 z-50">
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <div className="flex-shrink-0 flex ">
-              <img onClick={()=> navigate(props.homepath)} className="h-14 cursor-pointer" src={logo} alt="logo" />
+              <img
+                onClick={() => navigate(props.homepath)}
+                className="h-14 cursor-pointer"
+                src={logo}
+                alt="logo"
+              />
             </div>
 
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
                 {/* patient */}
                 {props.type === "patient" && (
-                  <button className="px-3 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
+                  <button
+                    className={`px-3 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold ${props.consultation}`}
+                  >
                     Consultation
                   </button>
                 )}
                 {props.type === "patient" && (
-                  <button className="px-3 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
+                  <button
+                    onClick={() => {
+                      navigate("/patient/mes_rendez_vous");
+                    }}
+                    className={`px-3 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold ${props.mesrndv}`}
+                  >
+                    Mes rendez-vous
+                  </button>
+                )}
+                {props.type === "patient" && (
+                  <button className="px-3 text-grey_light hover:text-darker_grey  font-bold">
                     Documents
                   </button>
                 )}
 
-
                 {/* medecin */}
-                { props.type === "medecin" && (
-                    <button className="px-3 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
+                {props.type === "medecin" && (
+                  <button
+                    onClick={() => {
+                      navigate("/medecin/mes_patient");
+                    }}
+                    className={`px-3 text-grey_light hover:text-darker_grey  font-bold ${props.mespatient}`}
+                  >
                     Mes patient
                   </button>
                 )}
                 {props.type === "medecin" && (
-                    <button className="px-3 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
+                  <button
+                    onClick={() => {
+                      navigate("/medecin/calendar");
+                    }}
+                    className={`px-3 text-grey_light hover:text-darker_grey  font-bold ${props.calendar}`}
+                  >
+                    Calendrier
+                  </button>
+                )}
+                {props.type === "medecin" && (
+                  <button className="px-3 text-grey_light hover:text-darker_grey  font-bold">
                     Historique des consultations
                   </button>
                 )}
                 {props.type === "medecin" && (
-                    <button className="px-3 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
+                  <button className="px-3 text-grey_light hover:text-darker_grey  font-bold">
                     Imagerie
                   </button>
                 )}
-
               </div>
             </div>
           </div>
@@ -70,9 +98,11 @@ export default function Navbar(props) {
               <div className="flex flex-row">
                 <div>
                   <p className="font-extrabold text-darker_grey ">Bonjour,</p>
-                  <p className="font-medium text-grey_light">Yassine Benlaria</p>
+                  <p className="font-medium text-grey_light">
+                    Yassine Benlaria
+                  </p>
                 </div>
-                <Dropdown/>
+                <Dropdown />
               </div>
             )}
           </div>
@@ -161,21 +191,36 @@ export default function Navbar(props) {
               )}
 
               {/* medecin */}
-              { props.type === "medecin" && (
-                    <button className="px-3 mt-5 block p-2 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
-                    Mes patient
-                  </button>
-                )}
-                {props.type === "medecin" && (
-                    <button className="px-3 mt-5 block p-2 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
-                    Historique des consultations
-                  </button>
-                )}
-                {props.type === "medecin" && (
-                    <button className="px-3 mt-5 pb-4 p-2 block text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
-                    Imagerie
-                  </button>
-                )}
+              {props.type === "medecin" && (
+                <button
+                  onClick={() => {
+                    navigate("/medecin/mes_patient");
+                  }}
+                  className={`px-3 mt-5 block p-2 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold ${props.mespatient}`}
+                >
+                  Mes patient
+                </button>
+              )}
+              {props.type === "medecin" && (
+                <button
+                  onClick={() => {
+                    navigate("/medecin/calendar");
+                  }}
+                  className={`px-3 mt-5 block p-2 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold ${props.calendar}`}
+                >
+                  Calendrier
+                </button>
+              )}
+              {props.type === "medecin" && (
+                <button className="px-3 mt-5 block p-2 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
+                  Historique des consultations
+                </button>
+              )}
+              {props.type === "medecin" && (
+                <button className="px-3 mt-5 pb-4 p-2 block text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
+                  Imagerie
+                </button>
+              )}
               {
                 <button className="bg-primary text-white group flex w-full items-center rounded-md px-2 py-2 text-sm">
                   Account
@@ -183,7 +228,7 @@ export default function Navbar(props) {
               }
               {
                 <button
-                onClick={signout}
+                  onClick={signout}
                   className={`bg-red-500 text-white group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                 >
                   Log Out

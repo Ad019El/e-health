@@ -21,7 +21,7 @@ function DoctorCardInfo(props){
             <button
             className="px-6 mt-2 h-12 transition ease-in duration-200  text-primary rounded-2xl hover:bg-primary hover:text-white border-2 border-primary focus:outline-none"
             onClick={() => {
-              navigate("/InfoMed");
+                navigate("/InfoMed", {state : {name: props.name, specialite: props.specialite, id: props.id}});
             }}
           >
             Voir l’agenda 
