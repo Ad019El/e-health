@@ -166,106 +166,104 @@ function Patinet() {
 
   return (
     <div>
-      <>
-        <Navbar
-          edit="hidden"
-          type="patient"
-          homepath="/patient"
-          consultation="text-darker_grey"
-        />
-        <div className="lg:p-10 lg:px-40 p-5 pt-18">
-          <div className="container px-3 mb-10 mx-auto flex flex-wrap flex-col md:flex-row items-center">
-            <div className="flex flex-col w-full justify-center items-start md:text-left">
-              <p className="text-2xl mt-5 font-medium mb-14 text-darker_grey">
-                Prochaines disponibilités :
-              </p>
+      <Navbar
+        edit="hidden"
+        type="patient"
+        homepath="/patient"
+        consultation="text-darker_grey"
+      />
+      <div className="lg:p-10 lg:px-40 p-5 pt-18">
+        <div className="container px-3 mb-10 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+          <div className="flex flex-col w-full justify-center items-start md:text-left">
+            <p className="text-2xl mt-5 font-medium mb-14 text-darker_grey">
+              Prochaines disponibilités :
+            </p>
 
-              <div className="md:flex md:flex-row place-items-center mb-10">
-                <div className="flex flex-row mb-4 md:mb-0">
-                  <p className="font-medium text-xl text-darker_grey p-2 pr-4 ">
-                    Recherche
-                  </p>
-                  <div className="flex relative ">
-                    <input
-                      className=" rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                      placeholder="Search"
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          handleSearch();
-                        }
-                      }}
-                      onChange={(e) => {
-                        setKeyword(e.target.value);
-                        // handleSearch();
-                      }}
-                    />
-                  </div>
+            <div className="md:flex md:flex-row place-items-center mb-10">
+              <div className="flex flex-row mb-4 md:mb-0">
+                <p className="font-medium text-xl text-darker_grey p-2 pr-4 ">
+                  Recherche
+                </p>
+                <div className="flex relative ">
+                  <input
+                    className=" rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                    placeholder="Search"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        handleSearch();
+                      }
+                    }}
+                    onChange={(e) => {
+                      setKeyword(e.target.value);
+                      // handleSearch();
+                    }}
+                  />
+                </div>
 
-                  <button
-                    type="button"
-                    onClick={handleSearch}
-                    className="flex justify-center items-center ml-4 bg-primary hover:bg-primary_800 focus:ring-primary focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-sm  w-11 h-11 rounded-lg "
-                  >
-                    <SearchIcon className="w-6 h-6" />
-                  </button>
-                </div>
-                <div className="flex flex-row ">
-                  <p className="font-medium text-xl text-darker_grey p-2 md:pl-10">
-                    Tarif
-                  </p>
-                  <input
-                    className=" rounded-lg mr-3 flex-1 appearance-none border border-gray-300 w-20 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base  focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    placeholder="Min"
-                    onChange={(e) => {
-                      setMin(e.target.value);
-                    }}
-                    type="number"
-                  />
-                  <input
-                    className=" rounded-lg flex-1 appearance-none border border-gray-300 w-20 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base  focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    placeholder="Max"
-                    onChange={(e) => {
-                      setMax(e.target.value);
-                    }}
-                    type="number"
-                  />
-                  <button
-                    className="flex justify-center items-center ml-4 bg-primary hover:bg-primary_800 focus:ring-primary focus:ring-offset-blue-200 text-white  transition ease-in duration-200 text-center text-base font-semibold shadow-sm  w-24 h-11 rounded-lg "
-                    onClick={handlePrice}
-                  >
-                    Filter
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  onClick={handleSearch}
+                  className="flex justify-center items-center ml-4 bg-primary hover:bg-primary_800 focus:ring-primary focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-sm  w-11 h-11 rounded-lg "
+                >
+                  <SearchIcon className="w-6 h-6" />
+                </button>
+              </div>
+              <div className="flex flex-row ">
+                <p className="font-medium text-xl text-darker_grey p-2 md:pl-10">
+                  Tarif
+                </p>
+                <input
+                  className=" rounded-lg mr-3 flex-1 appearance-none border border-gray-300 w-20 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base  focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  placeholder="Min"
+                  onChange={(e) => {
+                    setMin(e.target.value);
+                  }}
+                  type="number"
+                />
+                <input
+                  className=" rounded-lg flex-1 appearance-none border border-gray-300 w-20 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base  focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  placeholder="Max"
+                  onChange={(e) => {
+                    setMax(e.target.value);
+                  }}
+                  type="number"
+                />
+                <button
+                  className="flex justify-center items-center ml-4 bg-primary hover:bg-primary_800 focus:ring-primary focus:ring-offset-blue-200 text-white  transition ease-in duration-200 text-center text-base font-semibold shadow-sm  w-24 h-11 rounded-lg "
+                  onClick={handlePrice}
+                >
+                  Filter
+                </button>
               </div>
             </div>
           </div>
-          {Medecins.length === 0 && (
-            <p className="text-center text-primary text-4xl">No result</p>
-          )}
-          <div className="mb-10 grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-8 place-items-center">
-            {!searchLoading ? (
-              Medecins.map((medecin) => {
-                return (
-                  <DoctorCardInfo
-                    id={medecin.id}
-                    profile={profile}
-                    name={medecin.family_name + " " + medecin.first_name}
-                    specialite={medecin.speciality.join(", ")}
-                    prix={`${medecin.price} DA`}
-                  />
-                );
-              })
-            ) : (
-              <>
-                {<Spinner />}
-                {<Spinner />}
-                {<Spinner />}
-              </>
-            )}
-          </div>
-          <Footer />
         </div>
-      </>
+        {Medecins.length === 0 && (
+          <p className="text-center text-primary text-4xl">No result</p>
+        )}
+        <div className="mb-10 grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-8 place-items-center">
+          {!searchLoading ? (
+            Medecins.map((medecin) => {
+              return (
+                <DoctorCardInfo
+                  id={medecin.id}
+                  profile={profile}
+                  name={medecin.family_name + " " + medecin.first_name}
+                  specialite={medecin.speciality.join(", ")}
+                  prix={`${medecin.price} DA`}
+                />
+              );
+            })
+          ) : (
+            <>
+              {<Spinner />}
+              {<Spinner />}
+              {<Spinner />}
+            </>
+          )}
+        </div>
+        <Footer />
+      </div>
     </div>
   );
 } //

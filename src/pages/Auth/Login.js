@@ -28,11 +28,16 @@ function Login() {
         setAlert(error.response.data.err);
       });
   };
-
-  if (isAuthenticate()) {
+  let auth = isAuthenticate();
+  if (auth === "notVerified") {
+    if (getUserType()[1] === "patient") return <Navigate to="/confirmation" />;
+    return <Navigate to="/message_wait" />;
+  } else if (auth) {
+    console.log(getUserType());
     if (getUserType() === "patient") return <Navigate to="/patient" />;
     else if (getUserType() === "medecin") return <Navigate to="/medecin" />;
-    else if (getUserType() === "admin") return console.log("admin");
+    else if (getUserType() === "admin")
+      return <Navigate to="/admin/patients" />;
     else return <Navigate to="/login" />;
     // navigate("/patient");
   } else
@@ -40,7 +45,7 @@ function Login() {
       <>
         <Navbar edit="invisible" landing_phone_hide="invisible" homepath="/" />
 
-        <div class="shadow w-50 h-50   bg-teal-40 justify-center ">
+        <div class="shadow w-50 h-50 bg-teal-40 justify-center ">
           <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-1">
             <div className="max-w-xs w-full space-y-8">
               <div>
@@ -101,11 +106,11 @@ function Login() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center"></div>
 
-                  <div className="text-sm">
+                  {/* <div className="text-sm">
                     <a href="#" className=" text-blue-700 leading-normal">
                       Forgot your password?
                     </a>
-                  </div>
+                  </div> */}
                 </div>
 
                 <div>

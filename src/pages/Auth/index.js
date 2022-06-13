@@ -17,6 +17,27 @@ const API = `http://${process.env.REACT_APP_SERVER_IP}`;
 //         });
 // };
 
+//foramte date
+exports.formatDate = (date) => {
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var ampm = hours >= 12 ? "pm" : "am";
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  var strTime = hours + ":" + minutes + " " + ampm;
+  return (
+    date.getMonth() +
+    1 +
+    "/" +
+    date.getDate() +
+    "/" +
+    date.getFullYear() +
+    "  " +
+    strTime
+  );
+};
+
 //login
 exports.login = (email, password) => {
   const json = {
@@ -60,14 +81,20 @@ exports.signout = () => {
 //is Authenticate
 exports.isAuthenticate = () => {
   if (typeof window == "undefined") return false;
-  if (localStorage.getItem("jwt"))
+  if (localStorage.getItem("jwt")) {
+    if (JSON.parse(localStorage.getItem("jwt")).user.verified === false)
+      return "notVerified";
     return JSON.parse(localStorage.getItem("jwt"));
+  }
+
   return false;
 };
 
 //get user type
 exports.getUserType = () => {
   if (!localStorage.getItem("jwt")) return false;
+  if (JSON.parse(localStorage.getItem("jwt")).user.verified === false)
+    return [false, JSON.parse(localStorage.getItem("jwt")).user.type];
   return JSON.parse(localStorage.getItem("jwt")).user.type;
 };
 

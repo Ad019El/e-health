@@ -25,11 +25,11 @@ function Leading_praticient() {
           </p>
           <button
             onClick={() => {
-              navigate("/signup");
+              navigate("/signupmed");
             }}
             className="px-6 h-12 transition ease-in duration-200  text-white rounded-2xl bg-primary hover:bg-transparent hover:text-primary border-2 border-primary focus:outline-none"
           >
-            Inscrire
+            S'inscrire en tant que praticien
           </button>
         </div>
 

@@ -17,7 +17,7 @@ function App() {
             setType("praticient");
           }}
         >
-          Vous êtes praticient
+          Vous êtes praticien
         </a>
         <a
           className={`${

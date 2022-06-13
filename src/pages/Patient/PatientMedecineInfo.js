@@ -18,6 +18,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Spinner from "../../components/Spinner";
 import Alert from "../../components/Alert";
+import Footer from "../../components/Footer";
 
 // const schedulerData = [
 //   {
@@ -54,7 +55,6 @@ function PatientMedecineInfo(props) {
   const [show, setShow] = useState(true);
 
   const TooltipContent = ({ appointmentData, formatDate }) => {
-    console.log(appointmentData, "gggg ");
     return (
       <div>
         <div className="text-2xl pl-10 text-primary_800 font-bold ">{`${
@@ -74,16 +74,11 @@ function PatientMedecineInfo(props) {
             minute: "numeric",
           })}`}
         </div>
-        <p className="text-sm pl-10 text-primary_800 mb-1">Notes:</p>
-        <div className="text-1xl text-justify px-10  mb-4">{`${
-          appointmentData.notes || "No Notes"
-        }`}</div>
 
         <div className="w-full flex place-content-center">
           {appointmentData.reserved ? (
             <button
               onClick={() => {
-                console.log("appointement id", appointmentData.id);
                 const userID = JSON.parse(localStorage.getItem("jwt")).user._id;
 
                 axios
@@ -173,6 +168,7 @@ function PatientMedecineInfo(props) {
       })
       .then((result) => {
         setData([]);
+        let data = [];
         console.log(result.data);
         result.data.reservations.map((appointment) => {
           data.push({
@@ -197,7 +193,7 @@ function PatientMedecineInfo(props) {
     return () => {
       clearTimeout(timeId);
     };
-  });
+  }, []);
 
   return (
     <div>
@@ -250,7 +246,7 @@ function PatientMedecineInfo(props) {
                 </Scheduler>
               </div>
             ) : (
-              <Spinner calendar={"calendar"} />
+              <Spinner className="mb-52" calendar={"calendar"} />
             )}
             <p className="text-gray-800 text-xl text-center font-medium mb-2 mt-8">
               Profil du particien
@@ -258,6 +254,7 @@ function PatientMedecineInfo(props) {
             profile
           </div>
         </div>
+        <Footer />
       </div>
     </div>
   );

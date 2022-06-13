@@ -3,14 +3,98 @@ import { useNavigate } from "react-router-dom";
 import Alert from "../../components/Alert";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
+import Select from "react-select";
 
-function SignUp() {
+function SignUpMed() {
   const navigate = useNavigate();
   const axios = require("axios");
   const [alert, setAlert] = useState("");
   const [type, setType] = useState("Success");
 
+  const specialities = [
+    "Generalist",
+    "Pédiatre",
+    "Audioprothésiste",
+    "Chirurgien",
+    "Chirurgien Plastique Réparatrice et Esthétique",
+    "Chirurgien Urologue",
+    "Chirurgien cardiovasculaire et thoracique",
+    "Chirurgien des mains",
+    "Chirurgien digestif et viscéral",
+    "Chirurgien maxillo-faciale",
+    "Chirurgien orthopédique",
+    "Chirurgien-Dentiste",
+    "Conseillère conjugale et familiale",
+    "Diététicien",
+    "Ergothérapeute",
+    "Infirmier",
+    "Masseur-kinésithérapeute",
+    "Médecin Addictologue",
+    "Allergologue",
+    "Anesthésiste-réanimateur",
+    "Angiologue/phlébologue",
+    "Biologiste médical",
+    "Cardiologue",
+    "Dermatologue",
+    "Endocrinologue",
+    "Esthétique",
+    "Gynécologue",
+    "Généraliste",
+    "Généticien",
+    "Gériatre",
+    "Hématologue",
+    "Hépato-gastro-entérologue",
+    "Infectiologue",
+    "Neurologue",
+    "Néphrologue",
+    "Obstétricien",
+    "Oncologue",
+    "Ophtalmologue",
+    "Oto-rhino-laryngologiste",
+    "Pneumologue",
+    "Psychiatre",
+    "Pédiatre",
+    "Pédiatre gastroentérologue",
+    "Pédiatre néonatologue",
+    "Pédiatre pneumologue",
+    "Pédopsychiatre",
+    "Radiologue",
+    "Radiothérapeute",
+    "Rhumatologue",
+    "Rééducateur",
+    "Sexologue",
+    "Tabacologue",
+    "des expatriés",
+    "du Sport",
+    "interniste",
+    "Neurochirurgien",
+    "Nutritionniste",
+    "Opticien-lunetier",
+    "Orthodontiste",
+    "Orthophoniste",
+    "Orthoptiste",
+    "Ostéopathe",
+    "Pharmacien",
+    "Physiothérapeute",
+    "Psychologue",
+    "Psychomotricien",
+    "Psychothérapeute",
+    "Pédicure - Podologue",
+    "Sage-femme - Consultations gynécologiques",
+    "Thérapeute",
+  ];
+
+  const options = specialities.map((s) => {
+    return { value: s, label: s };
+  });
   let sexe = "M";
+  var specialites = [];
+
+  const handleSelect = (e) => {
+    specialites = e.map((s) => {
+      return s.value;
+    });
+  };
 
   const handleSexe = (e) => {
     sexe = e.target.value;
@@ -18,22 +102,23 @@ function SignUp() {
 
   const handleClick = (e) => {
     e.preventDefault();
+
     axios
-      .post(`http://${process.env.REACT_APP_SERVER_IP}/api/patient/signup`, {
+      .post(`http://${process.env.REACT_APP_SERVER_IP}/api/medecin/signup`, {
         first_name: e.target.prenom.value,
         family_name: e.target.nom.value,
-        weight: e.target.poids.value,
-        height: e.target.taille.value,
         phone: e.target.phone.value,
         address: e.target.address.value,
-        profession: e.target.profession.value,
         birth_date: e.target.birthday.value,
         email: e.target.email.value,
         password: e.target.password.value,
         gender: sexe,
+        n_ordre: e.target.order.value,
+        price: e.target.tarif.value,
+        speciality: specialites,
       })
       .then((result) => {
-        console.log(result);
+        console.log(specialites);
         // localStorage.setItem("jwt", result.data.token);
         // authenticate(result.data);
         // window.location.reload(false);
@@ -43,7 +128,7 @@ function SignUp() {
       .catch((error) => {
         console.log(error);
         setType("Failed!");
-        setAlert(error.response.data.err);
+        setAlert(error);
       });
   };
 
@@ -54,7 +139,7 @@ function SignUp() {
       <div className="shadow w-50 h-50 pt-10 pb-24   bg-teal-40 justify-center ">
         <div>
           <h2 className="mt-6 text-center text-3xl font-Montserrat text-gray-900">
-            Créez votre compte
+            Créez votre compte (Medecin)
           </h2>
           <p className="mt-2 text-center font-Montserrat text-sm text-gray-600">
             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Or &nbsp;
@@ -69,7 +154,7 @@ function SignUp() {
           </p>
         </div>
 
-        <div className="min-h-full flex items-center justify-center py-6 px-2 sm:px-2 lg:px-1">
+        <div className="min-h-full flex items-center justify-center py-6 sm:px-2 lg:px-1">
           <div className="max-w-xs w-full space-y-8">
             <form className="mt-8 space-y-6" onSubmit={handleClick}>
               <input type="hidden" name="remember" defaultValue="true" />
@@ -99,7 +184,7 @@ function SignUp() {
                     Prénom
                   </label>
                   <input
-                    className="appearance-none block w-full rounded-md text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="grid-prenom"
                     type="text"
                     name="prenom"
@@ -109,36 +194,6 @@ function SignUp() {
               </div>
 
               <div className="flex flex-wrap -mx-3 mb-2">
-                <div className="w-full mb-6 md:mb-0">
-                  <label
-                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    for="grid-poids"
-                  >
-                    Poids
-                  </label>
-                  <input
-                    className="appearance-none block w-full rounded-md text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="grid-poids"
-                    type="number"
-                    name="poids"
-                    placeholder="Poids"
-                  />
-                </div>
-                <div className="w-full mb-6 md:mb-0">
-                  <label
-                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                    for="grid-taille"
-                  >
-                    Taille
-                  </label>
-                  <input
-                    className="appearance-none block w-full rounded-md text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="grid-taille"
-                    type="number"
-                    name="taille"
-                    placeholder="Taille"
-                  />
-                </div>
                 <div className="w-full mb-6 md:mb-0">
                   <label
                     className="block uppercase tracking-wide text-gray-700 rounded-md text-xs font-bold mb-2"
@@ -173,7 +228,7 @@ function SignUp() {
                       Phone :
                     </label>
                     <input
-                      className="appearance-none block w-full  text-gray-700 rounded-md border border-gray-200 rounded py-3 px-5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                      className="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                       id="grid-phone"
                       name="phone"
                       placeholder="0656666666"
@@ -188,26 +243,11 @@ function SignUp() {
                       Address
                     </label>
                     <input
-                      className="appearance-none block w-full mb-4  text-gray-700 rounded-md border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                      className="appearance-none block w-full mb-4  text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                       id="grid-city"
                       type="text"
                       name="address"
                       placeholder="City"
-                    />
-                  </div>
-                  <div className="w-full  px-3 mb-6 md:mb-0">
-                    <label
-                      className="block uppercase tracking-wide text-gray-700 rounded-md text-xs font-bold mb-2"
-                      for="grid-state"
-                    >
-                      Profession
-                    </label>
-                    <input
-                      className="appearance-none block w-full mb-4  text-gray-700 rounded-md border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                      id="grid-state"
-                      type="text"
-                      name="profession"
-                      placeholder="Profession"
                     />
                   </div>
                 </div>
@@ -215,6 +255,51 @@ function SignUp() {
 
               <label for="birthday">Date de naissance:</label>
               <input type="date" id="birthday" name="birthday" />
+
+              <div className="flex flex-wrap -mx-3 mb-2">
+                <div className="w-full px-3 mb-6 md:mb-0">
+                  <label for="telNo block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                    Numéro de l'ordre :
+                  </label>
+                  <input
+                    className="appearance-none block w-full  text-gray-700  border border-gray-200 rounded py-3 px-5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="grid-phone"
+                    name="order"
+                    placeholder="165468456"
+                    type="tel"
+                    maxLength={9}
+                  ></input>
+                </div>
+                <div className="w-full px-3  mb-6 md:mb-0">
+                  <label
+                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    for="grid-city"
+                  >
+                    spécialité
+                  </label>
+                  <Select
+                    name="filters"
+                    placeholder="Filters"
+                    options={options}
+                    onChange={handleSelect}
+                    isMulti
+                  />
+                </div>
+
+                <div className="w-full px-3 mb-6 md:mb-0">
+                  <label for="telNo block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                    tarif (DA)
+                  </label>
+                  <input
+                    className="appearance-none block w-full  text-gray-700  border border-gray-200 rounded py-3 px-5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="grid-phone"
+                    name="tarif"
+                    placeholder="1500"
+                    type="number"
+                    maxLength={9}
+                  ></input>
+                </div>
+              </div>
 
               <div className="flex justify-center">
                 <div className="mb-3 w-96">
@@ -289,4 +374,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default SignUpMed;

@@ -1,6 +1,7 @@
 import { ArrowLeftIcon } from "@heroicons/react/solid";
 import * as React from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import { getUserType } from "../Auth";
 import CalendarComp from "./Calendar_comp";
@@ -40,6 +41,7 @@ function Calendar() {
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     </>
   );

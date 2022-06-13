@@ -8,6 +8,10 @@ import { Transition } from "@headlessui/react";
 
 export default function Navbar(props) {
   let navigate = useNavigate();
+  var user = "";
+  if (localStorage.getItem("jwt")) {
+    user = JSON.parse(localStorage.getItem("jwt"));
+  }
   const [isOpen, setIsOpen] = useState(false);
   return (
     <nav className="bg-white sticky shadow-sm top-0 z-50">
@@ -28,7 +32,10 @@ export default function Navbar(props) {
                 {/* patient */}
                 {props.type === "patient" && (
                   <button
-                    className={`px-3 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold ${props.consultation}`}
+                    onClick={() => {
+                      navigate("/patient");
+                    }}
+                    className={`px-3 text-grey_light hover:text-darker_grey font-bold ${props.consultation}`}
                   >
                     Consultation
                   </button>
@@ -41,11 +48,6 @@ export default function Navbar(props) {
                     className={`px-3 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold ${props.mesrndv}`}
                   >
                     Mes rendez-vous
-                  </button>
-                )}
-                {props.type === "patient" && (
-                  <button className="px-3 text-grey_light hover:text-darker_grey  font-bold">
-                    Documents
                   </button>
                 )}
 
@@ -80,6 +82,36 @@ export default function Navbar(props) {
                     Imagerie
                   </button>
                 )}
+
+                {/* admin */}
+                {props.type === "admin" && (
+                  <>
+                    <button
+                      onClick={() => {
+                        navigate("/admin/patients");
+                      }}
+                      className={`px-3 text-grey_light hover:text-darker_grey  font-bold ${props.patients}`}
+                    >
+                      Patients
+                    </button>
+                    <button
+                      onClick={() => {
+                        navigate("/admin/medecins");
+                      }}
+                      className={`px-3 text-grey_light hover:text-darker_grey  font-bold ${props.medecins}`}
+                    >
+                      Medecins
+                    </button>
+                    <button
+                      onClick={() => {
+                        navigate("/admin/validation");
+                      }}
+                      className={`px-3 text-grey_light hover:text-darker_grey  font-bold ${props.validate}`}
+                    >
+                      Valider medecin
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -89,7 +121,9 @@ export default function Navbar(props) {
               <div className="flex flex-row">
                 <div>
                   <p className="font-extrabold text-darker_grey ">Bonjour,</p>
-                  <p className="font-medium text-grey_light">Adel Dafi</p>
+                  <p className="font-medium text-grey_light">
+                    {user.user.first_name.split(" ")[0]}
+                  </p>
                 </div>
                 <Dropdown />
               </div>
@@ -99,8 +133,17 @@ export default function Navbar(props) {
                 <div>
                   <p className="font-extrabold text-darker_grey ">Bonjour,</p>
                   <p className="font-medium text-grey_light">
-                    Yassine Benlaria
+                    {user.user.first_name.split(" ")[0]}
                   </p>
+                </div>
+                <Dropdown />
+              </div>
+            )}
+            {props.type === "admin" && (
+              <div className="flex flex-row">
+                <div>
+                  <p className="font-extrabold text-darker_grey ">Bonjour,</p>
+                  <p className="font-medium text-grey_light">Admin</p>
                 </div>
                 <Dropdown />
               </div>
@@ -175,15 +218,16 @@ export default function Navbar(props) {
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               {/* mobile itemes */}
               {props.type === "patient" && (
-                <button className="px-3 mt-5 block p-2 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
+                <button
+                  onClick={() => {
+                    navigate("/patient");
+                  }}
+                  className="px-3 mt-5 block p-2 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold"
+                >
                   Consultation
                 </button>
               )}
-              {props.type === "patient" && (
-                <button className="px-3 mb-10 p-2 block text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
-                  Documents
-                </button>
-              )}
+
               {props.type === "patient" && (
                 <button className="px-3 mt-5 pb-4 p-2 block text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
                   Historique des consultation
@@ -221,19 +265,56 @@ export default function Navbar(props) {
                   Imagerie
                 </button>
               )}
-              {
-                <button className="bg-primary text-white group flex w-full items-center rounded-md px-2 py-2 text-sm">
-                  Account
-                </button>
-              }
-              {
-                <button
-                  onClick={signout}
-                  className={`bg-red-500 text-white group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                >
-                  Log Out
-                </button>
-              }
+
+              {props.type === "admin" && (
+                <>
+                  <button
+                    onClick={() => {
+                      navigate("/admin/patients");
+                    }}
+                    className={`px-3 text-grey_light block hover:text-darker_grey  font-bold ${props.patients}`}
+                  >
+                    Patients
+                  </button>
+                  <button
+                    onClick={() => {
+                      navigate("/admin/medecins");
+                    }}
+                    className={`px-3 text-grey_light block hover:text-darker_grey  font-bold ${props.medecins}`}
+                  >
+                    Medecins
+                  </button>
+                  <button
+                    onClick={() => {
+                      navigate("/admin/validation");
+                    }}
+                    className={`px-3 text-grey_light block hover:text-darker_grey font-bold ${props.validate}`}
+                  >
+                    Valider medecin
+                  </button>
+                </>
+              )}
+              {(props.type === "admin" ||
+                props.type === "mededin" ||
+                props.type === "patient") && (
+                <>
+                  <button
+                    onClick={() => {
+                      navigate("/account");
+                    }}
+                    className="bg-primary text-white group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                  >
+                    Account
+                  </button>
+                  <button
+                    onClick={signout}
+                    className={`bg-red-500 text-white group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                  >
+                    Log Out
+                  </button>
+                </>
+              )}
+              {}
             </div>
           </div>
         }

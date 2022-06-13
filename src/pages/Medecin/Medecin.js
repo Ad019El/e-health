@@ -4,6 +4,7 @@ import MesPatieints from "./Mes_patients";
 
 function Medecin() {
   if (getUserType() !== "medecin") return <Navigate to="/login" />;
+
   return (
     <>
       <MesPatieints />

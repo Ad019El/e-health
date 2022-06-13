@@ -15,8 +15,16 @@ import PrivateRoute from "./pages/Routes/Private_route";
 import SignUp from "./pages/Auth/SignUp";
 import Mes_patieints from "./pages/Medecin/Mes_patients";
 import Calendar from "./pages/Medecin/Calendar";
-import Account from "./pages/Account";
+import Account from "./pages/Accounts/Account";
 import MesRendezVous from "./pages/Patient/Mes_rendez_vous";
+import Confirmation from "./pages/Auth/Confirmation";
+import Success from "./pages/Auth/Success";
+import SignUpMed from "./pages/Auth/SignUpMed";
+import MessageWait from "./pages/Medecin/Message_wait";
+import Admin from "./pages/Admin/Admin";
+import Patients from "./pages/Admin/Patients";
+import Medecins from "./pages/Admin/Medecins";
+import Validate from "./pages/Admin/Validate";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -26,8 +34,37 @@ root.render(
         <Route path="/" element={<App />} />,
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/signupmed" element={<SignUpMed />} />
         <Route
-          path="/infoMed"
+          path="/admin/patients"
+          element={<PrivateRoute component={Admin} />}
+        />
+        <Route
+          path="/admin/patients"
+          element={<PrivateRoute component={Patients} />}
+        />
+        <Route
+          path="/admin/medecins"
+          element={<PrivateRoute component={Medecins} />}
+        />
+        <Route
+          path="/admin/validation"
+          element={<PrivateRoute component={Validate} />}
+        />
+        <Route
+          path="/message_wait"
+          element={<PrivateRoute component={MessageWait} />}
+        />
+        <Route
+          path="/confirmation"
+          element={<PrivateRoute component={Confirmation} />}
+        />
+        <Route
+          path="/confirmation/success"
+          element={<PrivateRoute component={Success} />}
+        />
+        <Route
+          path="/InfoMed"
           element={<PrivateRoute component={PatientMedecineInfo} />}
         />
         <Route path="/patient" element={<PrivateRoute component={Patinet} />} />

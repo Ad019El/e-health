@@ -1,10 +1,9 @@
+import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import Navbar from "../../components/Navbar";
-import TableItem from "../../components/TableItem";
-import { formatDate, getUserType } from "../Auth";
-import { useState, useEffect } from "react";
-import Spinner from "../../components/Spinner";
 import Footer from "../../components/Footer";
+import Navbar from "../../components/Navbar";
+import Spinner from "../../components/Spinner";
+import { formatDate, getUserType } from "../Auth";
 
 const axios = require("axios");
 const API = `http://${process.env.REACT_APP_SERVER_IP}`;
@@ -13,8 +12,8 @@ let userID = "";
 if (JSON.parse(localStorage.getItem("jwt")))
   userID = JSON.parse(localStorage.getItem("jwt")).user._id;
 
-function Mes_patieints() {
-  const [reservations, setreservations] = useState([]);
+function Patients() {
+  const [patients, setPatients] = useState([]);
   const [isLoading, setIsloading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [popup, setPopup] = useState("");
@@ -22,7 +21,7 @@ function Mes_patieints() {
   useEffect(() => {
     axios
       .get(
-        `${API}/api/appointment/reserved/${userID}`,
+        `${API}/api/patient/all/`,
 
         {
           headers: {
@@ -35,29 +34,30 @@ function Mes_patieints() {
       .then((result) => {
         setIsloading(true);
 
-        let reservations = [];
-        result.data.appointments.map((a) => {
-          reservations.push({
-            id: a._id,
-            startDate: formatDate(new Date(a.start_date)),
-            duration: a.duration,
-            title: a.title,
-            patient: a.patient,
-          });
+        let patients = [];
+        result.data.map((a) => {
+          patients.push(a);
         });
-        console.log(reservations);
-        setreservations(reservations);
+        console.log(patients);
+        setPatients(patients);
         setIsloading(false);
       })
       .catch((err) => console.log(err));
   }, []);
 
+  function calculateAge(birthday) {
+    // birthday is a date
+    var ageDifMs = Date.now() - birthday;
+    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+  }
+
   const modal = (d) => {
     console.log(d.dossier_medical);
     setPopup(
       <>
-        <div className="justify-center items-center fixed flex overflow-x-hidden overflow-y-auto md:overflow top-14 inset-0 z-50 outline-none focus:outline-none ">
-          <div className="relative w-auto my-6 mx-auto max-w-3xl ">
+        <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto md:overflow top-14 fixed inset-0 z-50 outline-none focus:outline-none">
+          <div className="relative w-auto my-6 mx-auto max-w-3xl">
             {/*content*/}
             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
               {/*header*/}
@@ -95,7 +95,7 @@ function Mes_patieints() {
                     </div>
                     <div>
                       <p className="text-sm text-darker_grey">Sexe:</p>
-                      <p>{d.gender === "H" ? "Homme" : "Femme"}</p>
+                      <p>{d.gender === "M" ? "Homme" : "Femme"}</p>
                     </div>
                     <div>
                       <p className="text-sm text-darker_grey">Profession:</p>
@@ -108,6 +108,12 @@ function Mes_patieints() {
                     <div>
                       <p className="text-sm text-darker_grey">Taille:</p>
                       <p>{d.height + " cm"}</p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-darker_grey">
+                        Date de naissance:
+                      </p>
+                      <p>{formatDate(new Date(d.birth_date)).split(" ")[0]}</p>
                     </div>
                     <div className="col-span-2">
                       <p className="text-sm text-darker_grey">Email:</p>
@@ -364,79 +370,86 @@ function Mes_patieints() {
     );
   };
 
-  if (getUserType() !== "medecin") return <Navigate to="/login" />;
+  if (getUserType() !== "admin") return <Navigate to="/login" />;
   return (
     <>
       <Navbar
         edit="hidden"
-        type="medecin"
-        homepath="/medecin"
-        mespatient={"text-darker_grey"}
+        type="admin"
+        homepath="/admin/patients"
+        patients="text-darker_grey"
       />
+
       <div className="lg:p-10 lg:px-40 p-5 pt-18">
         <div className="container px-3 mb-10 mx-auto flex flex-wrap flex-col md:flex-row items-center">
-          <div className="flex flex-col w-full mb-40 justify-center items-start md:text-left">
+          <div className="flex flex-col w-full justify-center items-start md:text-left">
             <p className="font-medium text-3xl mb-10 text-darker_grey p-2 md:pl-10">
-              Mes Patients
+              Patients
             </p>
+
+            {/* <button
+              className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+              type="button"
+              onClick={() => setShowModal(true)}
+            >
+              Open regular modal
+            </button> */}
+
             {showModal ? popup : null}
+
             <>
               {!isLoading ? (
                 <div className="w-full overflow-x-auto shadow-md sm:rounded-lg">
                   <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <thead className="text-xs text-gray-700 uppercase bg-gray-50  dark:text-gray-400">
+                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                       <tr>
                         <th scope="col" className="px-6 py-3">
-                          Nom et Prénom
+                          Nom complet
                         </th>
                         <th scope="col" className="px-6 py-3">
-                          Date de rendez-vous
+                          Age
                         </th>
                         <th scope="col" className="px-6 py-3">
-                          La durée
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                          Dossier Médical
+                          Sexe
                         </th>
                         <th scope="col" className="px-6 py-3 text-center">
-                          Prendre un Rendez-vous
+                          Dossier
                         </th>
                         <th scope="col" className="px-6 py-3">
-                          Annuler
+                          Supprimer
                         </th>
                       </tr>
                     </thead>
 
-                    {reservations.map((r) => {
-                      console.log(r);
+                    {patients.map((r) => {
                       return (
                         <tbody>
                           <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <TableItem
-                              fullname={
-                                r.patient.family_name +
-                                " " +
-                                r.patient.first_name
-                              }
-                              date={r.startDate}
-                              duree={r.duration}
-                            />
-                            <td className="px-6 py-4 ">
+                            <th
+                              scope="row"
+                              className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
+                            >
+                              {r.family_name + " " + r.first_name}
+                            </th>
+                            <td className="px-6 py-4">
+                              {calculateAge(new Date(r.birth_date)) + " ans"}
+                            </td>
+                            <td className="px-6 py-4">
+                              {(r.gender === "M" && "Homme") || "Femme"}
+                            </td>
+
+                            <td className="flex px-6 py-4 place-content-center">
                               <button
-                                className="px-4 py-1 text-sm text-blue-600 bg-blue-200 rounded-xl truncate md:rounded-full"
                                 onClick={() => {
-                                  modal(r.patient);
+                                  modal(r);
                                   setShowModal(true);
                                 }}
+                                className="px-4 py-1 text-sm text-blue-600 bg-blue-200 rounded-xl truncate md:rounded-full"
                               >
                                 Afficher le dossier
                               </button>
                             </td>
-                            <td className="flex px-6 py-4 place-content-center">
-                              <button className="px-4 py-1 text-sm text-green-400 bg-green-200 rounded-full">
-                                Meet
-                              </button>
-                            </td>
+
                             <td className="px-6 py-4">
                               <button
                                 className="px-4 py-1 text-sm text-red-400 bg-red-200 rounded-full"
@@ -445,39 +458,30 @@ function Mes_patieints() {
                                     localStorage.getItem("jwt")
                                   ).user._id;
                                   setIsloading(true);
-
-                                  window.confirm("Annuler cette réservation ?")
+                                  window.confirm("Supprimer cette compte?")
                                     ? axios
-                                        .delete(
-                                          `${API}/api/appointment/${r.id}`,
-                                          {
-                                            headers: {
-                                              Authorization: `Bearer ${
-                                                JSON.parse(
-                                                  localStorage.getItem("jwt")
-                                                ).token
-                                              }`,
-                                            },
-                                          }
-                                        )
-                                        .then((response) => {
-                                          setreservations(
-                                            reservations.filter(
-                                              (a) => a.id !== r.id
+                                        .delete(`${API}/api/patient/${r._id}`, {
+                                          headers: {
+                                            Authorization: `Bearer ${
+                                              JSON.parse(
+                                                localStorage.getItem("jwt")
+                                              ).token
+                                            }`,
+                                          },
+                                        })
+                                        .then((result) => {
+                                          setPatients(
+                                            patients.filter(
+                                              (a) => a._id !== r._id
                                             )
                                           );
                                           setIsloading(false);
                                         })
-                                        .catch((err) => {
-                                          console.log("---------", err);
-                                          this.setState({
-                                            alert: err.response.data.err,
-                                          });
-                                        })
+                                        .catch((err) => console.log(err))
                                     : setIsloading(false);
                                 }}
                               >
-                                Annuler
+                                Supprimer
                               </button>
                             </td>
                           </tr>
@@ -500,4 +504,4 @@ function Mes_patieints() {
   );
 }
 
-export default Mes_patieints;
+export default Patients;

@@ -14,6 +14,7 @@ import {
   TodayButton,
 } from "@devexpress/dx-react-scheduler-material-ui";
 import Alert from "../../components/Alert";
+import Spinner from "../../components/Spinner";
 
 // let appointments = [
 //   // {
@@ -80,7 +81,6 @@ const TooltipContent = ({ appointmentData, formatDate }) => {
 
   return (
     <div>
-      <div className="text-2xl pl-10 text-primary_800 font-bold ">{`${appointmentData.title}`}</div>
       <div className="pl-10 text-sm mb-5">
         {`
         ${new Date(appointmentData.startDate).toDateString()} `}
@@ -95,10 +95,6 @@ const TooltipContent = ({ appointmentData, formatDate }) => {
           minute: "numeric",
         })}`}
       </div>
-      <p className="text-sm pl-10 text-primary_800 mb-1">Notes:</p>
-      <div className="text-1xl text-justify px-10  mb-4">{`${
-        appointmentData.notes || "No Notes"
-      }`}</div>
 
       <div className="text-1xl text-justify px-10  mb-4">{`${
         appointmentData.reserved ? "Reserved by " + name : "Not reserved"
@@ -108,6 +104,14 @@ const TooltipContent = ({ appointmentData, formatDate }) => {
 };
 
 const BooleanEditor = () => {
+  return null;
+};
+
+const TextEditor = () => {
+  return null;
+};
+
+const LabelEditor = () => {
   return null;
 };
 
@@ -121,6 +125,7 @@ export default class Calendar_comp extends React.PureComponent {
       appointmentChanges: {},
       editingAppointment: undefined,
       alert: "",
+      isLoading: true,
     };
 
     this.commitChanges = this.commitChanges.bind(this);
@@ -151,8 +156,8 @@ export default class Calendar_comp extends React.PureComponent {
             notes: appointment.notes,
             patientID: appointment.patient_id,
           });
-
           this.setState({ data: data });
+          this.setState({ isLoading: false });
         });
       })
       .catch((err) => {
@@ -290,42 +295,52 @@ export default class Calendar_comp extends React.PureComponent {
 
     return (
       <>
-        <div className="px-10 mb-4">
-          {this.state.alert ? (
-            <Alert type="Failed!" color="red" content={this.state.alert} />
-          ) : (
-            <></>
-          )}
-        </div>
+        {true ? (
+          <>
+            <div className="px-10 mb-4">
+              {this.state.alert ? (
+                <Alert type="Failed!" color="red" content={this.state.alert} />
+              ) : (
+                <></>
+              )}
+            </div>
 
-        <Paper>
-          <Scheduler data={data} height={950}>
-            <ViewState defaultCurrentDate={currentDate} />
-            <WeekView startDayHour={8} endDayHour={17} />
-            <Toolbar />
-            <DateNavigator />
-            <TodayButton />
-            <EditingState
-              onCommitChanges={this.commitChanges}
-              addedAppointment={addedAppointment}
-              onAddedAppointmentChange={this.changeAddedAppointment}
-              appointmentChanges={appointmentChanges}
-              onAppointmentChangesChange={this.changeAppointmentChanges}
-              editingAppointment={editingAppointment}
-              onEditingAppointmentChange={this.changeEditingAppointment}
-            />
-            <EditRecurrenceMenu />
-            <ConfirmationDialog />
-            <Appointments appointmentComponent={Appointment} />
+            <Paper>
+              <Scheduler data={data} height={950}>
+                <ViewState defaultCurrentDate={currentDate} />
+                <WeekView startDayHour={8} endDayHour={17} />
+                <Toolbar />
+                <DateNavigator />
+                <TodayButton />
+                <EditingState
+                  onCommitChanges={this.commitChanges}
+                  addedAppointment={addedAppointment}
+                  onAddedAppointmentChange={this.changeAddedAppointment}
+                  appointmentChanges={appointmentChanges}
+                  onAppointmentChangesChange={this.changeAppointmentChanges}
+                  editingAppointment={editingAppointment}
+                  onEditingAppointmentChange={this.changeEditingAppointment}
+                />
+                <EditRecurrenceMenu />
+                <ConfirmationDialog />
+                <Appointments appointmentComponent={Appointment} />
 
-            <AppointmentTooltip
-              showOpenButton
-              showDeleteButton
-              contentComponent={TooltipContent}
-            />
-            <AppointmentForm booleanEditorComponent={BooleanEditor} />
-          </Scheduler>
-        </Paper>
+                <AppointmentTooltip
+                  showOpenButton
+                  showDeleteButton
+                  contentComponent={TooltipContent}
+                />
+                <AppointmentForm
+                  booleanEditorComponent={BooleanEditor}
+                  textEditorComponent={TextEditor}
+                  labelComponent={LabelEditor}
+                />
+              </Scheduler>
+            </Paper>
+          </>
+        ) : (
+          <Spinner calendar={"calendar"} />
+        )}
       </>
     );
   }
