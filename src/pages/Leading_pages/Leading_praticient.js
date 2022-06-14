@@ -47,20 +47,24 @@ function Leading_praticient() {
       </div>
       <div className="mb-10 grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-8 place-items-center">
         <InfoCard
-          title="Meilleure gestion de votre temps médical"
-          content="Avec Qare, planifiez simplement vos créneaux de téléconsultation depuis l’agenda en ligne."
+          image="https://cdn-icons-png.flaticon.com/512/387/387561.png"
+          title="Prenez rendez-vous en ligne"
+          content="Recherchez une spécialité puis choisissez le praticien et l'horaire qui vous conviennent. Connectez-vous à la salle d’attente 15 min avant le démarrage de la téléconsultation."
         />
         <InfoCard
-          title="Visualisez vos rendez-vous"
-          content="Accédez à votre agenda en ligne pour retrouver tous vos rendez-vous, les motifs de consultation et les dossiers médicaux des patients."
-        />
-        <InfoCard
+          image="https://cdn-icons-png.flaticon.com/512/387/387561.png"
           title="Effectuez votre téléconsultation"
-          content="Connectez-vous à votre espace praticien à l’heure prévue, lancez la téléconsultation : votre patient vous attend en salle d’attente virtuelle."
+          content="Décrivez vos symptômes à un praticien formé à la téléconsultation, en toute confidentialité depuis votre ordinateur ou votre smartphone."
         />
         <InfoCard
-          title="Partagez des documents médicaux"
-          content="La solution Qare est compatible avec votre logiciel métier pour vous permettre de partager vos documents."
+          image="https://cdn-icons-png.flaticon.com/512/387/387561.png"
+          title="Obtenez un avis médical"
+          content="Bénéficiez d'un avis, d’un diagnostic et si nécessaire d'une ordonnance valable en pharmacie, accessible en ligne depuis votre espace personnel."
+        />
+        <InfoCard
+          image="https://cdn-icons-png.flaticon.com/512/387/387561.png"
+          title="Soyez pris en charge"
+          content="La téléconsultation est remboursable par l’Assurance Maladie. Sur Qare, vous pouvez également consulter des médecins qui pratiquent le tiers payant - vous n’aurez alors aucun frais à avancer à condition d’avoir une carte vitale à jour."
         />
       </div>
       <Footer />
