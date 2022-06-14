@@ -82,6 +82,10 @@ import Spinner from "../../components/Spinner";
 //   "Thérapeute",
 // ];
 
+let userType = "";
+
+userType = "medecin";
+
 function Patinet() {
   const [Medecins, setMedecins] = useState([]);
   const [keyword, setKeyword] = useState("");

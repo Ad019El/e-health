@@ -28,18 +28,13 @@ function AccountAdmin() {
     };
 
     axios
-      .post(
-        `${API}/api/admin/update/${userID}`,
-        body,
-
-        {
-          headers: {
-            Authorization: `Bearer ${
-              JSON.parse(localStorage.getItem("jwt")).token
-            }`,
-          },
-        }
-      )
+      .post(`${API}/api/admin/update/${userID}`, body, {
+        headers: {
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("jwt")).token
+          }`,
+        },
+      })
       .then((result) => {
         console.log(11111111 + result.data);
 

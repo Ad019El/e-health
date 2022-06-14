@@ -16,6 +16,11 @@ function MesRendezVous() {
   const [reservations, setreservations] = useState([]);
   const [isLoading, setIsloading] = useState(true);
 
+  const handelMeet = (id) => {
+    // console.log(e);
+    window.location.assign(`/meeting/${id}`);
+  };
+
   useEffect(() => {
     axios
       .get(
@@ -105,7 +110,12 @@ function MesRendezVous() {
                             <td className="px-6 py-4">{r.duration}</td>
 
                             <td className="flex px-6 py-4 place-content-center">
-                              <button className="px-4 py-1 text-sm text-green-400 bg-green-200 rounded-full">
+                              <button
+                                className="px-4 py-1 text-sm text-green-400 bg-green-200 rounded-full"
+                                onClick={() => {
+                                  handelMeet(r.id);
+                                }}
+                              >
                                 Meet
                               </button>
                             </td>

@@ -25,6 +25,7 @@ import Admin from "./pages/Admin/Admin";
 import Patients from "./pages/Admin/Patients";
 import Medecins from "./pages/Admin/Medecins";
 import Validate from "./pages/Admin/Validate";
+import Video from "./pages/meeting/Meeting";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -35,6 +36,7 @@ root.render(
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signupmed" element={<SignUpMed />} />
+        <Route path="/meeting/:id" element={<Video />} />
         <Route
           path="/admin/patients"
           element={<PrivateRoute component={Admin} />}

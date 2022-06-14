@@ -1,4 +1,5 @@
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { getUserType } from ".";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 
@@ -30,6 +31,24 @@ function Confirmation() {
       });
   };
 
+  const inputfocus = (elmnt) => {
+    if (elmnt.key === "Delete" || elmnt.key === "Backspace") {
+      const next = elmnt.target.tabIndex - 2;
+      if (next > -1) {
+        elmnt.target.form.elements[next].focus();
+      }
+    } else {
+      console.log("next");
+
+      const next = elmnt.target.tabIndex;
+      if (next < 6) {
+        elmnt.target.form.elements[next].focus();
+      }
+    }
+  };
+  const type = typeof getUserType();
+  if (type == "string" || type == "boolean") return <Navigate to="/login" />;
+
   return (
     <>
       <Navbar edit="invisible" landing_phone_hide="invisible" homepath="/" />
@@ -56,36 +75,48 @@ function Confirmation() {
                       type="text"
                       id="1"
                       maxLength="1"
+                      tabIndex="1"
+                      onKeyUp={inputfocus}
                     />
                     <input
                       className="m-2 border h-10 w-10 text-center form-control rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                       type="text"
                       id="2"
                       maxLength="1"
+                      tabIndex="2"
+                      onKeyUp={inputfocus}
                     />
                     <input
                       className="m-2 border h-10 w-10 text-center form-control rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                       type="text"
                       id="3"
                       maxLength="1"
+                      tabIndex="3"
+                      onKeyUp={inputfocus}
                     />
                     <input
                       className="m-2 border h-10 w-10 text-center form-control rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                       type="text"
                       id="4"
                       maxLength="1"
+                      tabIndex="4"
+                      onKeyUp={inputfocus}
                     />
                     <input
                       className="m-2 border h-10 w-10 text-center form-control rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                       type="text"
                       id="5"
                       maxLength="1"
+                      tabIndex="5"
+                      onKeyUp={inputfocus}
                     />
                     <input
                       className="m-2 border h-10 w-10 text-center form-control rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                       type="text"
                       id="6"
                       maxLength="1"
+                      tabIndex="6"
+                      onKeyUp={inputfocus}
                     />
                     <div className="flex justify-center text-center mt-5 mb-5">
                       <button

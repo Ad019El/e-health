@@ -1,3 +1,4 @@
+// const fs = require("fs");
 const axios = require("axios");
 const API = `http://${process.env.REACT_APP_SERVER_IP}`;
 
@@ -167,6 +168,14 @@ exports.addAppointment = (id, titre, start_date, end_date, notes) => {
       return err.response.data;
     });
 };
+// base 64 to image
+// exports.base64_encode = (file) => {
+//   // read binary data
+//   var bitmap = fs.readFileSync(file);
+//   // convert binary data to base64 encoded string
+//   return Buffer.from(bitmap).toString("base64");
+//   return new Buffer(bitmap).toString("base64");
+// };
 
 //add new patient
 // exports.addEmployee = (nom, prenom, email, telephone, poste, image) => {
@@ -212,15 +221,15 @@ exports.addAppointment = (id, titre, start_date, end_date, notes) => {
 // };
 
 //base64 String to ArrayBuffer
-function base64ToArrayBuffer(base64) {
-  var binary_string = window.atob(base64);
-  var len = binary_string.length;
-  var bytes = new Uint8Array(len);
-  for (var i = 0; i < len; i++) {
-    bytes[i] = binary_string.charCodeAt(i);
-  }
-  return bytes.buffer;
-}
+// function base64ToArrayBuffer(base64) {
+//   var binary_string = window.atob(base64);
+//   var len = binary_string.length;
+//   var bytes = new Uint8Array(len);
+//   for (var i = 0; i < len; i++) {
+//     bytes[i] = binary_string.charCodeAt(i);
+//   }
+//   return bytes.buffer;
+// }
 
 //refresh users in localstorage
 // function refreshUsers() {

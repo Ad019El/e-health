@@ -221,6 +221,7 @@ export default function Navbar(props) {
                 <button
                   onClick={() => {
                     navigate("/patient");
+
                   }}
                   className="px-3 mt-5 block p-2 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold"
                 >

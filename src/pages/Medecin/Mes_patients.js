@@ -19,6 +19,11 @@ function Mes_patieints() {
   const [showModal, setShowModal] = useState(false);
   const [popup, setPopup] = useState("");
 
+  const handelMeet = (id) => {
+    // console.log(e);
+    window.location.assign(`/meeting/${id}`);
+  };
+
   useEffect(() => {
     axios
       .get(
@@ -50,6 +55,10 @@ function Mes_patieints() {
         setIsloading(false);
       })
       .catch((err) => console.log(err));
+
+    return () => {
+      <>h</>;
+    };
   }, []);
 
   const modal = (d) => {
@@ -95,7 +104,7 @@ function Mes_patieints() {
                     </div>
                     <div>
                       <p className="text-sm text-darker_grey">Sexe:</p>
-                      <p>{d.gender === "H" ? "Homme" : "Femme"}</p>
+                      <p>{d.gender === "M" ? "Homme" : "Femme"}</p>
                     </div>
                     <div>
                       <p className="text-sm text-darker_grey">Profession:</p>
@@ -108,6 +117,12 @@ function Mes_patieints() {
                     <div>
                       <p className="text-sm text-darker_grey">Taille:</p>
                       <p>{d.height + " cm"}</p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-darker_grey">
+                        Date de naissance:
+                      </p>
+                      <p>{formatDate(new Date(d.birth_date)).split(" ")[0]}</p>
                     </div>
                     <div className="col-span-2">
                       <p className="text-sm text-darker_grey">Email:</p>
@@ -433,7 +448,12 @@ function Mes_patieints() {
                               </button>
                             </td>
                             <td className="flex px-6 py-4 place-content-center">
-                              <button className="px-4 py-1 text-sm text-green-400 bg-green-200 rounded-full">
+                              <button
+                                className="px-4 py-1 text-sm text-green-400 bg-green-200 rounded-full"
+                                onClick={() => {
+                                  handelMeet(r.id);
+                                }}
+                              >
                                 Meet
                               </button>
                             </td>

@@ -8,12 +8,8 @@ import { formatDate, getUserType } from "../Auth";
 const axios = require("axios");
 const API = `http://${process.env.REACT_APP_SERVER_IP}`;
 
-let userID = "";
-if (JSON.parse(localStorage.getItem("jwt")))
-  userID = JSON.parse(localStorage.getItem("jwt")).user._id;
-
 function Validate() {
-  const [patients, setPatients] = useState([]);
+  const [medecin, setMedecin] = useState([]);
   const [isLoading, setIsloading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [popup, setPopup] = useState("");
@@ -34,12 +30,12 @@ function Validate() {
       .then((result) => {
         setIsloading(true);
 
-        let patients = [];
+        let medecin = [];
         result.data.map((a) => {
-          patients.push(a);
+          medecin.push(a);
         });
-        console.log(patients);
-        setPatients(patients);
+        console.log(medecin);
+        setMedecin(medecin);
         setIsloading(false);
       })
       .catch((err) => console.log(err));
@@ -65,10 +61,10 @@ function Validate() {
                   Informations du médecin
                 </h3>
                 <button
-                  className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                  className="p-1 ml-auto  border-0 text-black opacity-4 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                   onClick={() => setShowModal(false)}
                 >
-                  <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                  <span className="text-black  h-6 w-6 text-2xl block focus:outline-none">
                     ×
                   </span>
                 </button>
@@ -95,7 +91,7 @@ function Validate() {
                   </div>
                   <div>
                     <p className="text-sm text-darker_grey">Sexe:</p>
-                    <p>{d.gender === "H" ? "Homme" : "Femme"}</p>
+                    <p>{d.gender === "M" ? "Homme" : "Femme"}</p>
                   </div>
                   <div className="col-span-2">
                     <p className="text-sm text-darker_grey">N Order:</p>
@@ -187,12 +183,12 @@ function Validate() {
                           Validation
                         </th>
                         <th scope="col" className="px-6 py-3">
-                          Annuler
+                          Supprimer
                         </th>
                       </tr>
                     </thead>
 
-                    {patients.map((r) => {
+                    {medecin.map((r) => {
                       return (
                         <tbody>
                           <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -229,17 +225,12 @@ function Validate() {
                               <button
                                 className="px-4 py-1 text-sm text-green-400 bg-green-200 rounded-full"
                                 onClick={() => {
-                                  const userID = JSON.parse(
-                                    localStorage.getItem("jwt")
-                                  ).user._id;
                                   setIsloading(true);
                                   window.confirm("Supprimer cette compte?")
                                     ? axios
                                         .post(
-                                          `${API}/api/appointment/cancel/${userID}`,
-                                          {
-                                            appointment_id: r.id,
-                                          },
+                                          `${API}/api/medecin/confirm/${r._id}`,
+                                          {},
                                           {
                                             headers: {
                                               Authorization: `Bearer ${
@@ -251,9 +242,9 @@ function Validate() {
                                           }
                                         )
                                         .then((result) => {
-                                          setPatients(
-                                            patients.filter(
-                                              (a) => a.id !== r.id
+                                          setMedecin(
+                                            medecin.filter(
+                                              (a) => a._id !== r._id
                                             )
                                           );
                                           setIsloading(false);
@@ -270,31 +261,22 @@ function Validate() {
                               <button
                                 className="px-4 py-1 text-sm text-red-400 bg-red-200 rounded-full"
                                 onClick={() => {
-                                  const userID = JSON.parse(
-                                    localStorage.getItem("jwt")
-                                  ).user._id;
                                   setIsloading(true);
                                   window.confirm("Supprimer cette compte?")
                                     ? axios
-                                        .post(
-                                          `${API}/api/appointment/cancel/${userID}`,
-                                          {
-                                            appointment_id: r.id,
+                                        .delete(`${API}/api/medecin/${r._id}`, {
+                                          headers: {
+                                            Authorization: `Bearer ${
+                                              JSON.parse(
+                                                localStorage.getItem("jwt")
+                                              ).token
+                                            }`,
                                           },
-                                          {
-                                            headers: {
-                                              Authorization: `Bearer ${
-                                                JSON.parse(
-                                                  localStorage.getItem("jwt")
-                                                ).token
-                                              }`,
-                                            },
-                                          }
-                                        )
+                                        })
                                         .then((result) => {
-                                          setPatients(
-                                            patients.filter(
-                                              (a) => a.id !== r.id
+                                          setMedecin(
+                                            medecin.filter(
+                                              (a) => a._id !== r._id
                                             )
                                           );
                                           setIsloading(false);
@@ -303,7 +285,7 @@ function Validate() {
                                     : setIsloading(false);
                                 }}
                               >
-                                Annuler
+                                Supprimer
                               </button>
                             </td>
                           </tr>

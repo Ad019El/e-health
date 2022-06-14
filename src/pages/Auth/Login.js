@@ -50,7 +50,7 @@ function Login() {
             <div className="max-w-xs w-full space-y-8">
               <div>
                 <h2 className="mt-6 text-center text-3xl font-Montserrat text-gray-900">
-                  Sign in to your account
+                  Connectez-vous à votre compte
                 </h2>
                 {alert ? (
                   <Alert type="Failed!" color="red" content={alert} />

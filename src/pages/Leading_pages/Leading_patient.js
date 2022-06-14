@@ -52,18 +52,22 @@ function Leading_patient() {
       </div>
       <div className="mb-10 grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-8 place-items-center">
         <InfoCard
+          image="https://cdn-icons-png.flaticon.com/512/387/387561.png"
           title="Prenez rendez-vous en ligne"
           content="Recherchez une spécialité puis choisissez le praticien et l'horaire qui vous conviennent. Connectez-vous à la salle d’attente 15 min avant le démarrage de la téléconsultation."
         />
         <InfoCard
+          image="https://cdn-icons-png.flaticon.com/512/387/387561.png"
           title="Effectuez votre téléconsultation"
           content="Décrivez vos symptômes à un praticien formé à la téléconsultation, en toute confidentialité depuis votre ordinateur ou votre smartphone."
         />
         <InfoCard
+          image="https://cdn-icons-png.flaticon.com/512/387/387561.png"
           title="Obtenez un avis médical"
           content="Bénéficiez d'un avis, d’un diagnostic et si nécessaire d'une ordonnance valable en pharmacie, accessible en ligne depuis votre espace personnel."
         />
         <InfoCard
+          image="https://cdn-icons-png.flaticon.com/512/387/387561.png"
           title="Soyez pris en charge"
           content="La téléconsultation est remboursable par l’Assurance Maladie. Sur Qare, vous pouvez également consulter des médecins qui pratiquent le tiers payant - vous n’aurez alors aucun frais à avancer à condition d’avoir une carte vitale à jour."
         />

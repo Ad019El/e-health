@@ -1,6 +1,5 @@
 import Navbar from "../../components/Navbar";
 import { ArrowLeftIcon } from "@heroicons/react/solid";
-import profile from "../../assets/profile.png";
 
 import * as React from "react";
 import { ViewState } from "@devexpress/dx-react-scheduler";
@@ -45,6 +44,13 @@ import Footer from "../../components/Footer";
 const axios = require("axios");
 const API = `http://${process.env.REACT_APP_SERVER_IP}`;
 
+let userType = "";
+let userID = "";
+if (JSON.parse(localStorage.getItem("jwt"))) {
+  userType = JSON.parse(localStorage.getItem("jwt")).user.type;
+  userID = JSON.parse(localStorage.getItem("jwt")).user._id;
+}
+
 function PatientMedecineInfo(props) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -53,6 +59,7 @@ function PatientMedecineInfo(props) {
   const [alert, setAlert] = useState("");
   const [type, setType] = useState("Success");
   const [show, setShow] = useState(true);
+  const [profile, setProfile] = useState("");
 
   const TooltipContent = ({ appointmentData, formatDate }) => {
     return (
@@ -186,6 +193,25 @@ function PatientMedecineInfo(props) {
       })
       .catch((err) => console.log(err));
 
+    axios({
+      method: "get",
+      url: `${API}/api/${userType}/photo/${userID}`,
+      responseType: "stream",
+      headers: {
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("jwt")).token
+        }`,
+      },
+    })
+      .then((result) => {
+        // setIsloading(true);
+
+        setProfile(result.data.image);
+
+        // setIsloading(false);
+      })
+      .catch((err) => console.log("error -------", err));
+
     const timeId = setTimeout(() => {
       setShow(false);
     }, 7000);
@@ -212,7 +238,11 @@ function PatientMedecineInfo(props) {
             </button>
             <div className="flex flex-row items-center">
               <div className="w-20 h-20 mt-10">
-                <img className="rounded-full" src={profile} alt="profile" />
+                <img
+                  className="rounded-full"
+                  src={`data:image/jpeg;base64, ${profile}`}
+                  alt="profile"
+                />
               </div>
               <div className="flex flex-col items-start pl-5">
                 <p className="tex`t-gray-800 text-xl text-center font-medium mb-2 mt-4">

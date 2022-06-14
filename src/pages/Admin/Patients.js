@@ -454,9 +454,6 @@ function Patients() {
                               <button
                                 className="px-4 py-1 text-sm text-red-400 bg-red-200 rounded-full"
                                 onClick={() => {
-                                  const userID = JSON.parse(
-                                    localStorage.getItem("jwt")
-                                  ).user._id;
                                   setIsloading(true);
                                   window.confirm("Supprimer cette compte?")
                                     ? axios

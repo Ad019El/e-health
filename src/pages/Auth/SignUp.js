@@ -216,7 +216,7 @@ function SignUp() {
               <label for="birthday">Date de naissance:</label>
               <input type="date" id="birthday" name="birthday" />
 
-              <div className="flex justify-center">
+              {/* <div className="flex justify-center">
                 <div className="mb-3 w-96">
                   <label
                     for="formFile"
@@ -231,7 +231,7 @@ function SignUp() {
                     class="block cursor-pointer w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                   />
                 </div>
-              </div>
+              </div> */}
 
               <div className="rounded-md shadow-sm -space-y-px">
                 <div>
