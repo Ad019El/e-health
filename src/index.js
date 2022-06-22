@@ -26,6 +26,12 @@ import Patients from "./pages/Admin/Patients";
 import Medecins from "./pages/Admin/Medecins";
 import Validate from "./pages/Admin/Validate";
 import Video from "./pages/meeting/Meeting";
+import About from "./pages/About";
+import Ordonnance from "./pages/Medecin/Ordonnace";
+import ImageriePatient from "./pages/Patient/ImageriePatient";
+import ImagerieMed from "./pages/Medecin/ImagerieMed";
+import HistoriqueConsultation from "./pages/Medecin/HistoryConsult";
+import HistoriqueConsultationPatient from "./pages/Patient/HistoryConPatient";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -36,7 +42,31 @@ root.render(
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signupmed" element={<SignUpMed />} />
-        <Route path="/meeting/:id" element={<Video />} />
+        <Route path="/about" element={<About />} />
+        <Route
+          path="/ordonnace"
+          element={<PrivateRoute component={Ordonnance} />}
+        />
+        <Route
+          path="/medecin/historique_cons"
+          element={<PrivateRoute component={HistoriqueConsultation} />}
+        />
+        <Route
+          path="/patient/historique_cons"
+          element={<PrivateRoute component={HistoriqueConsultationPatient} />}
+        />
+        <Route
+          path="/meeting/:id"
+          element={<PrivateRoute component={Video} />}
+        />
+        <Route
+          path="/imagerie"
+          element={<PrivateRoute component={ImageriePatient} />}
+        />
+        <Route
+          path="/medecin/imagerieMed"
+          element={<PrivateRoute component={ImagerieMed} />}
+        />
         <Route
           path="/admin/patients"
           element={<PrivateRoute component={Admin} />}

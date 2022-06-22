@@ -52,24 +52,24 @@ function Leading_patient() {
       </div>
       <div className="mb-10 grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-8 place-items-center">
         <InfoCard
-          image="https://cdn-icons-png.flaticon.com/512/387/387561.png"
+          image="https://cdn-icons-png.flaticon.com/512/1584/1584793.png"
           title="Prenez rendez-vous en ligne"
           content="Recherchez une spécialité puis choisissez le praticien et l'horaire qui vous conviennent. Connectez-vous à la salle d’attente 15 min avant le démarrage de la téléconsultation."
         />
         <InfoCard
-          image="https://cdn-icons-png.flaticon.com/512/387/387561.png"
+          image="https://us.123rf.com/450wm/blankstock/blankstock1904/blankstock190401756/123946635-ic%C3%B4ne-de-ligne-de-calendrier-m%C3%A9dical-signe-de-rendez-vous-chez-le-m%C3%A9decin-%C3%A9l%C3%A9ments-de-conception-de-.jpg?ver=6"
           title="Effectuez votre téléconsultation"
           content="Décrivez vos symptômes à un praticien formé à la téléconsultation, en toute confidentialité depuis votre ordinateur ou votre smartphone."
         />
         <InfoCard
-          image="https://cdn-icons-png.flaticon.com/512/387/387561.png"
+          image="https://cdn-icons-png.flaticon.com/512/2701/2701190.png"
           title="Obtenez un avis médical"
           content="Bénéficiez d'un avis, d’un diagnostic et si nécessaire d'une ordonnance valable en pharmacie, accessible en ligne depuis votre espace personnel."
         />
         <InfoCard
-          image="https://cdn-icons-png.flaticon.com/512/387/387561.png"
+          image="https://www.paypalobjects.com/marketing/web/ppcp/enterprises/make-paymet-hero-euro.png"
           title="Soyez pris en charge"
-          content="La téléconsultation est remboursable par l’Assurance Maladie. Sur Qare, vous pouvez également consulter des médecins qui pratiquent le tiers payant - vous n’aurez alors aucun frais à avancer à condition d’avoir une carte vitale à jour."
+          content="La téléconsultation est remboursable par l’Assurance Maladie. Sur E-santé, vous pouvez également consulter des médecins qui pratiquent le tiers payant - vous n’aurez alors aucun frais à avancer à condition d’avoir une carte vitale à jour."
         />
       </div>
       <Footer />

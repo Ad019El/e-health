@@ -50,7 +50,36 @@ export default function Navbar(props) {
                     Mes rendez-vous
                   </button>
                 )}
+                {props.type === "patient" && (
+                  <button
+                    className={`px-3 text-grey_light hover:text-darker_grey  font-bold ${props.histoconsultpatient}`}
+                    onClick={() => {
+                      navigate("/patient/historique_cons");
+                    }}
+                  >
+                    Mes consultations
+                  </button>
+                )}
+                {/* {props.type === "medecin" && (
+                  <a
+                    href="http://192.168.43.150:8080/dcm4chee-web3"
+                    target="blank"
+                    className={`px-3 text-grey_light hover:text-darker_grey font-bold ${props.imagerie}`}
+                  >
+                    Imagerie
+                  </a>
+                )} */}
 
+                {props.type === "patient" && (
+                  <button
+                    onClick={() => {
+                      navigate("/imagerie");
+                    }}
+                    className={`px-3 text-grey_light hover:text-darker_grey font-bold ${props.imagerie}`}
+                  >
+                    Envoier imagerie
+                  </button>
+                )}
                 {/* medecin */}
                 {props.type === "medecin" && (
                   <button
@@ -73,14 +102,23 @@ export default function Navbar(props) {
                   </button>
                 )}
                 {props.type === "medecin" && (
-                  <button className="px-3 text-grey_light hover:text-darker_grey  font-bold">
+                  <button
+                    className={`px-3 text-grey_light hover:text-darker_grey  font-bold ${props.histoconsult}`}
+                    onClick={() => {
+                      navigate("/medecin/historique_cons");
+                    }}
+                  >
                     Historique des consultations
                   </button>
                 )}
                 {props.type === "medecin" && (
-                  <button className="px-3 text-grey_light hover:text-darker_grey  font-bold">
+                  <a
+                    href="http://192.168.1.5:8080/dcm4chee-web3"
+                    target="blank"
+                    className={`px-3 text-grey_light hover:text-darker_grey font-bold ${props.imagerie}`}
+                  >
                     Imagerie
-                  </button>
+                  </a>
                 )}
 
                 {/* admin */}
@@ -221,7 +259,6 @@ export default function Navbar(props) {
                 <button
                   onClick={() => {
                     navigate("/patient");
-
                   }}
                   className="px-3 mt-5 block p-2 text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold"
                 >
@@ -230,7 +267,7 @@ export default function Navbar(props) {
               )}
 
               {props.type === "patient" && (
-                <button className="px-3 mt-5 pb-4 p-2 block text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold">
+                <button className="px-3 mt-5 pb-4 p-2 block text-grey_light hover:text-darker_grey focus:text-darker_grey font-bold ">
                   Historique des consultation
                 </button>
               )}

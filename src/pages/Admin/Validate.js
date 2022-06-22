@@ -183,7 +183,7 @@ function Validate() {
                           Validation
                         </th>
                         <th scope="col" className="px-6 py-3">
-                          Supprimer
+                          Désactiver
                         </th>
                       </tr>
                     </thead>
@@ -226,7 +226,7 @@ function Validate() {
                                 className="px-4 py-1 text-sm text-green-400 bg-green-200 rounded-full"
                                 onClick={() => {
                                   setIsloading(true);
-                                  window.confirm("Supprimer cette compte?")
+                                  window.confirm("Désactiver cette compte?")
                                     ? axios
                                         .post(
                                           `${API}/api/medecin/confirm/${r._id}`,
@@ -262,7 +262,7 @@ function Validate() {
                                 className="px-4 py-1 text-sm text-red-400 bg-red-200 rounded-full"
                                 onClick={() => {
                                   setIsloading(true);
-                                  window.confirm("Supprimer cette compte?")
+                                  window.confirm("Désactiver cette compte?")
                                     ? axios
                                         .delete(`${API}/api/medecin/${r._id}`, {
                                           headers: {
@@ -285,7 +285,7 @@ function Validate() {
                                     : setIsloading(false);
                                 }}
                               >
-                                Supprimer
+                                Désactiver
                               </button>
                             </td>
                           </tr>

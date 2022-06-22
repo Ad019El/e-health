@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Alert from "../../components/Alert";
 import Navbar from "../../components/Navbar";
+import { base64ToArrayBuffer } from "../Auth";
 
 let userID = "";
 if (JSON.parse(localStorage.getItem("jwt")))
@@ -324,6 +325,85 @@ function AccountMedecin() {
             </button>
           </div>
         </form>
+        <div className="flex justify-center mt-8">
+          <div className="block w-96 rounded-lg shadow-lg bg-white text-center">
+            <div className="py-5 px-9 border-b border-gray-300 bg-primary text-white ">
+              Ajouter CV
+            </div>
+            <div className="p-10 w-auto">
+              <div className="shadow sm:rounded-md sm:overflow-hidden">
+                <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
+                  <div>
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        const formData = new FormData();
+                        formData.append("cv", e.target.cv.value);
+                        try {
+                          const response = axios({
+                            method: "post",
+                            url: `${API}/api/medecin/cv/${userID}`,
+                            data: formData,
+                            headers: {
+                              "Content-Type": "multipart/form-data",
+                              Authorization: `Bearer ${
+                                JSON.parse(localStorage.getItem("jwt")).token
+                              }`,
+                            },
+                          });
+                        } catch (error) {
+                          console.log(error);
+                        }
+                      }}
+                    >
+                      <div className="col-span-9 sm:col-span-7">
+                        <div className="w-96 ">
+                          <input
+                            type="file"
+                            name="cv"
+                            accept=".pdf"
+                            class="block cursor-pointer w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                          />
+                        </div>
+                        <div className="flex justify-center">
+                          <button
+                            type="submit"
+                            className="group mb-10 relative w-70 mt-6 rounded-md py-2 px-4 text-white text-sm font-medium bg-primary hover:bg-transparent hover:text-primary border-2 border-primary focus:outline-none "
+                          >
+                            Envoier CV
+                          </button>
+                        </div>
+                        <p
+                          onClick={() => {
+                            axios
+                              .get(`${API}/api/medecin/cv/${userID}`)
+                              .then((result) => {
+                                var arrBuffer = base64ToArrayBuffer(
+                                  result.data.cv
+                                );
+                                const file = new Blob([arrBuffer], {
+                                  type: "application/pdf",
+                                });
+                                const fileURL = URL.createObjectURL(file);
+                                const pdfWindow = window.open();
+                                pdfWindow.location.href = fileURL;
+                              })
+                              .catch((err) => {
+                                console.log("Error: ", err);
+                              });
+                          }}
+                          className="underline cursor-pointer text-primary"
+                        >
+                          Voir CV
+                        </p>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import TableItem from "../../components/TableItem";
 import { formatDate, getUserType } from "../Auth";
@@ -18,6 +18,7 @@ function Mes_patieints() {
   const [isLoading, setIsloading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [popup, setPopup] = useState("");
+  const navigate = useNavigate();
 
   const handelMeet = (id) => {
     // console.log(e);
@@ -26,17 +27,13 @@ function Mes_patieints() {
 
   useEffect(() => {
     axios
-      .get(
-        `${API}/api/appointment/reserved/${userID}`,
-
-        {
-          headers: {
-            Authorization: `Bearer ${
-              JSON.parse(localStorage.getItem("jwt")).token
-            }`,
-          },
-        }
-      )
+      .get(`${API}/api/appointment/reserved/${userID}`, {
+        headers: {
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("jwt")).token
+          }`,
+        },
+      })
       .then((result) => {
         setIsloading(true);
 
@@ -50,7 +47,7 @@ function Mes_patieints() {
             patient: a.patient,
           });
         });
-        console.log(reservations);
+        // console.log(reservations);
         setreservations(reservations);
         setIsloading(false);
       })
@@ -62,7 +59,6 @@ function Mes_patieints() {
   }, []);
 
   const modal = (d) => {
-    console.log(d.dossier_medical);
     setPopup(
       <>
         <div className="justify-center items-center fixed flex overflow-x-hidden overflow-y-auto md:overflow top-14 inset-0 z-50 outline-none focus:outline-none ">
@@ -364,7 +360,7 @@ function Mes_patieints() {
               {/*footer*/}
               <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                 <button
-                  className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  className="text-red-500 background-transparent font-bold uppercase px-3 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                   type="button"
                   onClick={() => setShowModal(false)}
                 >
@@ -401,22 +397,25 @@ function Mes_patieints() {
                   <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50  dark:text-gray-400">
                       <tr>
-                        <th scope="col" className="px-6 py-3">
+                        <th scope="col" className="px-3 py-3">
                           Nom et Prénom
                         </th>
-                        <th scope="col" className="px-6 py-3">
+                        <th scope="col" className="px-3 py-3">
                           Date de rendez-vous
                         </th>
-                        <th scope="col" className="px-6 py-3">
+                        <th scope="col" className="px-3 py-3">
                           La durée
                         </th>
-                        <th scope="col" className="px-6 py-3">
+                        {/* <th scope="col" className="px-3 py-3">
+                          Ordonnance
+                        </th> */}
+                        <th scope="col" className="px-3 py-3">
                           Dossier Médical
                         </th>
-                        <th scope="col" className="px-6 py-3 text-center">
+                        <th scope="col" className="px-3 py-3 text-center">
                           Prendre un Rendez-vous
                         </th>
-                        <th scope="col" className="px-6 py-3">
+                        <th scope="col" className="px-3 py-3">
                           Annuler
                         </th>
                       </tr>
@@ -436,9 +435,22 @@ function Mes_patieints() {
                               date={r.startDate}
                               duree={r.duration}
                             />
-                            <td className="px-6 py-4 ">
+                            {/* <td className="px-3 py-4 ">
                               <button
-                                className="px-4 py-1 text-sm text-blue-600 bg-blue-200 rounded-xl truncate md:rounded-full"
+                                className="px-3 py-1 text-sm text-blue-600 bg-blue-200 rounded-xl truncate md:rounded-full"
+                                onClick={() => {
+                                  return navigate("/ordonnace", {
+                                    state: { r },
+                                  });
+                                  //  <Ordonnance r={r.patient} />;
+                                }}
+                              >
+                                Ordonnance
+                              </button>
+                            </td> */}
+                            <td className="px-3 py-4 ">
+                              <button
+                                className="px-3 py-1 text-sm text-blue-600 bg-blue-200 rounded-xl truncate md:rounded-full"
                                 onClick={() => {
                                   modal(r.patient);
                                   setShowModal(true);
@@ -447,9 +459,9 @@ function Mes_patieints() {
                                 Afficher le dossier
                               </button>
                             </td>
-                            <td className="flex px-6 py-4 place-content-center">
+                            <td className="flex px-3 py-4 place-content-center">
                               <button
-                                className="px-4 py-1 text-sm text-green-400 bg-green-200 rounded-full"
+                                className="px-3 py-1 text-sm text-green-400 bg-green-200 rounded-full"
                                 onClick={() => {
                                   handelMeet(r.id);
                                 }}
@@ -457,9 +469,9 @@ function Mes_patieints() {
                                 Meet
                               </button>
                             </td>
-                            <td className="px-6 py-4">
+                            <td className="px-3 py-4">
                               <button
-                                className="px-4 py-1 text-sm text-red-400 bg-red-200 rounded-full"
+                                className="px-3 py-1 text-sm text-red-400 bg-red-200 rounded-full"
                                 onClick={() => {
                                   const userID = JSON.parse(
                                     localStorage.getItem("jwt")

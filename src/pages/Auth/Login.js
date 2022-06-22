@@ -70,7 +70,7 @@ function Login() {
               </div>
               <form className="mt-8 space-y-6" onSubmit={handleClick}>
                 <input type="hidden" name="remember" defaultValue="true" />
-                <div className="rounded-md rounded-full shadow-sm -space-y-px">
+                <div className="rounded-md shadow-sm -space-y-px">
                   <div>
                     <label htmlFor="email-address" className="sr-only">
                       Email address

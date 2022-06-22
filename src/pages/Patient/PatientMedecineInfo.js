@@ -1,6 +1,5 @@
 import Navbar from "../../components/Navbar";
 import { ArrowLeftIcon } from "@heroicons/react/solid";
-
 import * as React from "react";
 import { ViewState } from "@devexpress/dx-react-scheduler";
 import {
@@ -18,7 +17,7 @@ import { useState, useEffect } from "react";
 import Spinner from "../../components/Spinner";
 import Alert from "../../components/Alert";
 import Footer from "../../components/Footer";
-
+import { base64ToArrayBuffer } from "../Auth";
 // const schedulerData = [
 //   {
 //     //2022-05-25T09:45
@@ -236,7 +235,7 @@ function PatientMedecineInfo(props) {
             >
               <ArrowLeftIcon className="h-8 w-8" />
             </button>
-            <div className="flex flex-row items-center">
+            <div className="flex flex-row items-center md:w-full">
               <div className="w-20 h-20 mt-10">
                 <img
                   className="rounded-full"
@@ -251,8 +250,32 @@ function PatientMedecineInfo(props) {
                 <p className="text-gray-400 text-center text-xs">
                   {location.state.specialite}
                 </p>
+                <div>
+                  <p
+                    className="underline cursor-pointer text-primary"
+                    onClick={() => {
+                      axios
+                        .get(`${API}/api/medecin/cv/${location.state.id}`)
+                        .then((result) => {
+                          var arrBuffer = base64ToArrayBuffer(result.data.cv);
+                          const file = new Blob([arrBuffer], {
+                            type: "application/pdf",
+                          });
+                          const fileURL = URL.createObjectURL(file);
+                          const pdfWindow = window.open();
+                          pdfWindow.location.href = fileURL;
+                        })
+                        .catch((err) => {
+                          console.log("Error: ", err);
+                        });
+                    }}
+                  >
+                    Voir CV
+                  </p>
+                </div>
               </div>
             </div>
+
             <div className="w-full px-4 m-5 mt-10 mb-2">
               {alert ? (
                 show && <Alert type={type} calendar={true} content={alert} />
@@ -278,10 +301,6 @@ function PatientMedecineInfo(props) {
             ) : (
               <Spinner className="mb-52" calendar={"calendar"} />
             )}
-            <p className="text-gray-800 text-xl text-center font-medium mb-2 mt-8">
-              Profil du particien
-            </p>
-            profile
           </div>
         </div>
         <Footer />

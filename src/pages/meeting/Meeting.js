@@ -80,12 +80,7 @@ export default function Video({ match }) {
 
   return (
     <div className="fixed top-0 z-50 w-full">
-      <Navbar
-        edit="hidden"
-        type={userType}
-        homepath={`/${userType}`}
-        reload={true}
-      />
+      <Navbar edit="hidden" type={userType} homepath={`/${userType}`} />
     </div>
   );
 }

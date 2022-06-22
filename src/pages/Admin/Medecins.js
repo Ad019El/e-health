@@ -180,7 +180,7 @@ function Medecins() {
                           Dossier
                         </th>
                         <th scope="col" className="px-6 py-3">
-                          Supprimer
+                          Désactiver
                         </th>
                       </tr>
                     </thead>
@@ -223,7 +223,7 @@ function Medecins() {
                                 className="px-4 py-1 text-sm text-red-400 bg-red-200 rounded-full"
                                 onClick={() => {
                                   setIsloading(true);
-                                  window.confirm("Supprimer cette compte?")
+                                  window.confirm("Désactiver cette compte?")
                                     ? axios
                                         .delete(`${API}/api/medecin/${r._id}`, {
                                           headers: {
@@ -246,7 +246,7 @@ function Medecins() {
                                     : setIsloading(false);
                                 }}
                               >
-                                Supprimer
+                                Désactiver
                               </button>
                             </td>
                           </tr>
