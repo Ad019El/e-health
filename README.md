@@ -15,8 +15,14 @@ E-health is a web application designed to manage patient and doctor health infor
 
 To get started with E-health, follow the steps below:
 
-1.  Clone or download the repository.
-2.  Install the required dependencies by running `yarn install` or `npm install` in your terminal.
-3.  Start the application by running `yarn start` or `npm start`.
-4.  Open your web browser and visit `http://localhost:3000`.
-5.  You're all set to use E-health!
+1. Clone or download the repository.
+2. Install the required dependencies by running `yarn install` or `npm install` in your terminal.
+3. Create a `.env` file in the root directory of the project.
+4. Add the following environment variable to the `.env` file:
+```env
+REACT_APP_SERVER_IP=your_server_ip
+```
+Replace `your_server_ip` with the actual IP address of your server.
+5. Start the application by running `yarn start` or `npm start`.
+6. Open your web browser and visit `http://localhost:3000`.
+7. You're all set to use E-health!
